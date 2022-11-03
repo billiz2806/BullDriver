@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Registro.Empezar"
+             NavigationPage.HasNavigationBar="False">
+    <Grid BackgroundColor="#fff">
+        <StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand"
+                         Spacing="60">
+                <Label 
+                Text="BullDriver"
+                TextColor="#373660"
+                HorizontalOptions="Center"
+                FontSize="40"
+                FontAttributes="Bold"/>
+                <Image Source="https://i.ibb.co/h1WBNdz/img-intro.png"
+                   HeightRequest="200"/>
+                <Label 
+                Text="Viaja con seguridad"
+                TextColor="#3f51b5"
+                HorizontalOptions="Center"
+                FontSize="30"
+                HorizontalTextAlignment="Center"/>
+            </StackLayout>
+
+            <Grid VerticalOptions="EndAndExpand"
+                  Margin="20">
+                <Button 
+                    Text="Empezar"
+                    BackgroundColor="#373660"
+                    TextColor="White"
+                    TextTransform="None"
+                    FontAttributes="Bold"
+                    CornerRadius="10"
+                    />
+                <Image Source="https://i.ibb.co/wzXJYGs/flechas-a-la-derecha.png"
+                       HeightRequest="30"
+                       HorizontalOptions="End"
+                       Margin="0,0,20,0"/>
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentPage>

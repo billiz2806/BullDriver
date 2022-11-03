@@ -1,8 +1,5 @@
-﻿using BullDriver.Services;
-using BullDriver.Views;
-using System;
+﻿using BullDriver.Views.Registro;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace BullDriver
 {
@@ -13,8 +10,7 @@ namespace BullDriver
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new CrearCuenta();
         }
 
         protected override void OnStart()
