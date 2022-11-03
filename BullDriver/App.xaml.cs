@@ -10,7 +10,7 @@ namespace BullDriver
         {
             InitializeComponent();
 
-            MainPage = new CrearCuenta();
+            MainPage = new CompletarRegistro();
         }
 
         protected override void OnStart()
