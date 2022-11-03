@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Menu.MenuPrincipal"
+             xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps">
+    <StackLayout Padding="20" BackgroundColor="White" Spacing="20">
+        <Image
+             Source="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            HorizontalOptions="End"
+            HeightRequest="30"/>
+        <Frame CornerRadius="10" Padding="0" BackgroundColor="#EEEEEE" HasShadow="False">
+            <Grid ColumnDefinitions="auto,auto">
+                <StackLayout VerticalOptions="Center" Padding="20">
+                    <Label Text="¿Listo? ¡vamos a ello!"
+                           TextColor="#373660"
+                           FontSize="Medium"
+                           FontAttributes="Bold"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Viaja con BullApp"
+                               TextColor="#373660"
+                               FontSize="Body"
+                               />
+                        <Image Source="https://i.ibb.co/cD2Y2N9/flechas-correcta.png"
+                               HeightRequest="30"/>
+                    </StackLayout>
+                </StackLayout>
+                <Image Source="https://www.mitsubishi-motors.com.pe/blog/wp-content/uploads/2021/02/sen%CC%83ales-conductor-responsable-.jpg"
+                           Grid.Column="1"
+                           Aspect="AspectFill"/>
+            </Grid>
+        </Frame>
+        <Frame CornerRadius="10" BackgroundColor="#EEEEEE" HasShadow="False">
+            <Label Margin="10,0,0,0" 
+                   Text="¿A donde vamos?"
+                   TextColor="#373660"
+                    FontSize="Large"/>
+        </Frame>
+        <StackLayout Orientation="Horizontal">
+            <Frame BackgroundColor="#EEEEEE"
+                   VerticalOptions="Center"
+                   CornerRadius="30"
+                   Padding="15">
+                <Image Source="https://i.ibb.co/V3QM746/estrella-1.png"
+                       HeightRequest="15"/>
+            </Frame>
+            <Label Text="Elegir un favorito"
+                   VerticalOptions="Center"
+                   FontSize="Medium"
+                   Margin="20,0,0,0"
+                   TextColor="#373660"/>
+            <Image Source="https://i.ibb.co/Czn5Jn3/mover-al-siguiente.png"
+                   HeightRequest="25"
+                   HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Frame BackgroundColor="#EEEEEE"
+                   VerticalOptions="Center"
+                   CornerRadius="30"
+                   Padding="15">
+                <Image Source="https://i.ibb.co/y5jL3G1/alfiler-1.png"
+                       HeightRequest="15"/>
+            </Frame>
+            <Label Text="Establecer destino en el mapa"
+                   VerticalOptions="Center"
+                   FontSize="Medium"
+                   Margin="20,0,0,0"
+                   TextColor="#373660"/>
+            <Image Source="https://i.ibb.co/Czn5Jn3/mover-al-siguiente.png"
+                   HeightRequest="25"
+                   HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+        <Label Text="A tu alrededor"
+               FontSize="Medium"
+               TextColor="#373660"
+               FontAttributes="Bold"/>
+        <Frame VerticalOptions="FillAndExpand"
+               CornerRadius="15"
+               Padding="0"
+               HasShadow="False">
+            <maps:Map></maps:Map>
+        </Frame>
+    </StackLayout>
+</ContentPage>

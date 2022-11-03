@@ -1,4 +1,5 @@
-﻿using BullDriver.Views.Registro;
+﻿using BullDriver.Views.Menu;
+using BullDriver.Views.Registro;
 using Xamarin.Forms;
 
 namespace BullDriver
@@ -10,7 +11,7 @@ namespace BullDriver
         {
             InitializeComponent();
 
-            MainPage = new DigitarCodigo();
+            MainPage = new MenuPrincipal();
         }
 
         protected override void OnStart()
