@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Registro.DigitarCodigo"
+             xmlns:material="clr-namespace:Plugin.MaterialDesignControls;assembly=Plugin.MaterialDesignControls">
+    <StackLayout Padding="20"
+                 BackgroundColor="White"
+                 Spacing="20">
+        <Label Text="Ingrese el codigo de 4 digitos que se envio al 956525415"
+               FontSize="Medium"
+               TextColor="#373660"/>
+        <Grid ColumnDefinitions="*,*">
+            <material:MaterialCodeEntry Length="4"
+                                        Keyboard="Numeric"
+                                        FontSize="20" />
+        </Grid>
+        <Frame CornerRadius="30"
+                HorizontalOptions="FillAndExpand"
+                Padding="20,8"
+                HasShadow="False"
+                BackgroundColor = "#F6F6F6" >
+            <Label Text="No recibi el código (0:30)" 
+                   TextColor="#373660"
+                   HorizontalOptions="Center"/>
+        </Frame>
+        <StackLayout Orientation="Horizontal"
+                     VerticalOptions="EndAndExpand">
+            <Frame BackgroundColor="#EEEEEE"
+                   HasShadow="False"
+                   CornerRadius="35"
+                   VerticalOptions="Center"
+                   Padding="20">
+                <Image Source="https://i.ibb.co/k5gTQFK/flecha-izquierda-2.png"
+                       HeightRequest="20"/>
+            </Frame>
+            <Frame HorizontalOptions="EndAndExpand"
+                   Margin="0,20"
+                   BackgroundColor="#373660"
+                   CornerRadius="30"
+                   Padding="10">
+                <StackLayout Orientation="Horizontal">
+                    <Label 
+                    Text="Siguiente"
+                    TextColor="White"
+                    TextTransform="None"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    Margin="20,0,10,0"/>
+                    <Image Source="https://i.ibb.co/wzXJYGs/flechas-a-la-derecha.png"
+                       HeightRequest="30"
+                       HorizontalOptions="End"
+                       Margin="0,0,20,0"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
