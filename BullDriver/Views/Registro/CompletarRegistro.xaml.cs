@@ -1,4 +1,5 @@
 ﻿using BullDriver.Models;
+using BullDriver.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace BullDriver.Views.Registro
         public CompletarRegistro(GoogleUser userParameter)
         {
             InitializeComponent();
+            BindingContext = new CompletarRegistroViewModel(Navigation, userParameter);
         }
     }
 }

@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BullDriver.Views.Registro.CompletarRegistro"
-             Visual="Material">
+             Visual="Material"
+             xmlns:vm="clr-namespace:BullDriver.ViewModels"
+             x:DataType="vm:CompletarRegistroViewModel">
     <StackLayout BackgroundColor="White"
                  Spacing="20"
                  Padding="15">
@@ -17,7 +19,8 @@
                    Margin="0,0,20,0">
                 <Entry Placeholder="Ingresa tu nombre"
                         BackgroundColor="#EEEEEE"
-                       PlaceholderColor="#3f51b5"/>
+                       PlaceholderColor="#3f51b5"
+                       Text="{Binding _googleUser.Nombre}"/>
             </Frame>
             <Frame BackgroundColor="#EEEEEE"
                    Padding="5"
@@ -26,7 +29,8 @@
                    Grid.Column="1">
                 <Entry Placeholder="Ingresa tu apellido"
                         BackgroundColor="#EEEEEE"
-                       PlaceholderColor="#3f51b5"/>
+                       PlaceholderColor="#3f51b5"
+                       Text="{Binding _googleUser.Apellido}"/>
             </Frame>
         </Grid>
         <StackLayout Orientation="Horizontal">
