@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "926420792875",
+    "project_id": "bulldriver",
+    "storage_bucket": "bulldriver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926420792875:android:bc06fefe4a2a400b32dc6e",
+        "android_client_info": {
+          "package_name": "com.BullDriverCompany.bulldriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926420792875-1quoch58gdn0de2grgaqi7ueggc7t4om.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.BullDriverCompany.bulldriver",
+            "certificate_hash": "b8de89a1b91fbc20a800d61ae0e30ca3d5ddf565"
+          }
+        },
+        {
+          "client_id": "926420792875-uk03ti2fej2nq8kouhjoqr0no54dhko1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBMSPEL8JRtFKalWNumXzaWPlyxi7dWck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926420792875-uk03ti2fej2nq8kouhjoqr0no54dhko1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

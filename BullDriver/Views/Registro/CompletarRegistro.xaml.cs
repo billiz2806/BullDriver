@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BullDriver.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace BullDriver.Views.Registro
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CompletarRegistro : ContentPage
     {
-        public CompletarRegistro()
+        public CompletarRegistro(GoogleUser userParameter)
         {
             InitializeComponent();
         }

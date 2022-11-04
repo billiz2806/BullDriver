@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BullDriver.Views.Registro.Empezar"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:vm="clr-namespace:BullDriver.ViewModels"
+             x:DataType="vm:EmpezarViewModel">
     <Grid BackgroundColor="#fff">
         <StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand"
@@ -32,6 +34,7 @@
                     TextTransform="None"
                     FontAttributes="Bold"
                     CornerRadius="10"
+                    Command="{Binding IrCrearCuentaComand }"
                     />
                 <Image Source="https://i.ibb.co/wzXJYGs/flechas-a-la-derecha.png"
                        HeightRequest="30"

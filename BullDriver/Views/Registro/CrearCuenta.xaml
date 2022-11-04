@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BullDriver.Views.Registro.CrearCuenta">
+             x:Class="BullDriver.Views.Registro.CrearCuenta"
+             xmlns:vm="clr-namespace:BullDriver.ViewModels"
+             x:DataType="vm:CrearCuentaViewModel">
     <StackLayout Padding="20"
-                 Spacing="30">
+                 Spacing="30"
+                 BackgroundColor="#FFF">
         <Label Text="Selecciona tu cuenta google"
                FontSize="Medium"
                TextColor="#373660"
@@ -22,6 +25,9 @@
                        FontAttributes="Bold"
                         TextColor="#373660" />
             </StackLayout>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoginGmailCommand}"/>
+            </Frame.GestureRecognizers>
         </Frame>
     </StackLayout>
 </ContentPage>

@@ -11,7 +11,7 @@ namespace BullDriver
         {
             InitializeComponent();
 
-            MainPage = new MenuPrincipal();
+            MainPage = new NavigationPage( new Empezar());
         }
 
         protected override void OnStart()

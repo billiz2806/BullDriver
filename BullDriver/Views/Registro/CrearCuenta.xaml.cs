@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BullDriver.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace BullDriver.Views.Registro
         public CrearCuenta()
         {
             InitializeComponent();
+            BindingContext = new CrearCuentaViewModel(Navigation);
         }
     }
 }
