@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BullDriver.Views.Registro
+namespace BullDriver.Views.Reutilizables
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DigitarCodigo : ContentPage
+    public partial class ListaPaises : ContentPage
     {
-        public DigitarCodigo(String codigo)
+        public ListaPaises()
         {
             InitializeComponent();
         }

@@ -56,7 +56,8 @@
                            Placeholder="Numero de Movil"
                            HorizontalOptions="FillAndExpand"
                            Keyboard="Telephone"
-                           PlaceholderColor="#3f51b5"/>
+                           PlaceholderColor="#3f51b5"
+                           Text="{Binding TxtNumero}"/>
                 </StackLayout>
             </Frame>
         </StackLayout>
@@ -87,6 +88,9 @@
                        HeightRequest="30"
                        HorizontalOptions="End"
                        Margin="0,0,20,0"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnviarSMScommand}"/>
+                    </StackLayout.GestureRecognizers>
                 </StackLayout>
             </Frame>
         </StackLayout>
