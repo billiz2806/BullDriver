@@ -4,7 +4,8 @@
              x:Class="BullDriver.Views.Registro.CompletarRegistro"
              Visual="Material"
              xmlns:vm="clr-namespace:BullDriver.ViewModels"
-             x:DataType="vm:CompletarRegistroViewModel">
+             x:DataType="vm:CompletarRegistroViewModel"
+             xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
     <StackLayout BackgroundColor="White"
                  Spacing="20"
                  Padding="15">
@@ -38,8 +39,15 @@
                    CornerRadius="10"
                    HasShadow="False">
                 <StackLayout Orientation="Horizontal">
+                    <svg:SvgCachedImage Source="{Binding SelectPaisDefault.IconoUrl}"
+                                        HeightRequest="26"
+                                        WidthRequest="26"
+                                        Margin="5"/>
                     <Image Source="https://i.ibb.co/ggFB6y6/ordenar-abajo.png"
                            HeightRequest="9"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MostrarListaPaisesCommand}"/>
+                    </StackLayout.GestureRecognizers>
                 </StackLayout>
             </Frame>
             <Frame HorizontalOptions="FillAndExpand"
@@ -48,7 +56,7 @@
                    HasShadow="False"
                    BackgroundColor="#EEEEEE">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="+51"
+                    <Label Text="{Binding SelectPaisDefault.CodigoPais, StringFormat='+{0}'}"
                            TextColor="Black"
                            FontSize="Medium"
                            VerticalOptions="Center"/>

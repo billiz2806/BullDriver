@@ -9,6 +9,9 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using BullDriver.Views.Registro;
+using BullDriver.Views.Reutilizables;
+using BullDriver.Datos;
+using Rg.Plugins.Popup.Services;
 
 namespace BullDriver.ViewModels
 {
@@ -16,6 +19,9 @@ namespace BullDriver.ViewModels
     {
         #region VARIABLES
         string _txtNumero;
+        List<Paises> _listaPaises;
+        Paises _selectPaisDefault;
+        Paises _selectPais;
         public GoogleUser _googleUser { get; set; }
         #endregion
         #region CONSTRUCTOR
@@ -23,6 +29,7 @@ namespace BullDriver.ViewModels
         {
             Navigation = navigation;
             _googleUser = googleUser;
+            ObtenerDataPorPais();
         }
         #endregion
         #region OBJETOS
@@ -30,6 +37,21 @@ namespace BullDriver.ViewModels
         {
             get { return _txtNumero; }
             set { SetValue(ref _txtNumero, value); }
+        }
+        public List<Paises> ListaPaises
+        {
+            get { return _listaPaises; }
+            set { SetValue(ref _listaPaises, value); }
+        }
+        public Paises SelectPaisDefault
+        {
+            get { return _selectPaisDefault; }
+            set { SetValue(ref _selectPaisDefault, value); }
+        }
+        public Paises SelectPais
+        {
+            get { return _selectPais; }
+            set { SetValue(ref _selectPais, value); }
         }
         #endregion
         #region PROCESOS
@@ -77,8 +99,48 @@ namespace BullDriver.ViewModels
                 await DisplayAlert("Alerta", ex.Message, "OK");
             }
         }
+
+        public void MostrarPaises()
+        {
+            var funcion = new DataPaises();
+            ListaPaises = funcion.MostrarPaises();
+        }
+
+        public void ObtenerDataPorPais()
+        {
+            var funcion = new DataPaises();
+            SelectPaisDefault = funcion.MostrarPaisesPorNombre("Peru");
+            SelectPais = funcion.MostrarPaisesPorNombre("Peru");
+        }
+
+        private void MostrarListaPaises()
+        {
+            var popup = new ListaPaises();
+            popup.BindingContext = this;
+            MostrarPaises();
+            PopupNavigation.Instance.PushAsync(popup);
+        }
+
+        private void SeleccionarPais(Paises entidad)
+        {
+            SelectPais = entidad;
+        }
+
+        private void ConfirmarPais()
+        {
+            SelectPaisDefault = SelectPais;
+            PopupNavigation.Instance.PopAsync();
+        }
+        private void Cancelar()
+        {
+            PopupNavigation.Instance.PopAsync();
+        }
         #endregion
         #region COMANDOS
+        public ICommand CancelarCommand => new Command(Cancelar);
+        public ICommand ConfirmarPaisCommand => new Command(ConfirmarPais);
+        public ICommand SeleccionarPaisCommand => new Command<Paises>(SeleccionarPais);
+        public ICommand MostrarListaPaisesCommand => new Command(MostrarListaPaises);
         public ICommand EnviarSMScommand => new Command(EnviarSms);
         #endregion
     }

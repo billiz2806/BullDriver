@@ -1,25 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BullDriver.Views.Reutilizables.ListaPaises"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:popups="http://rotorgames.com">
+    <popups:PopupPage.Animation>
+        <popups:MoveAnimation PositionIn="Bottom"
+                              PositionOut="Bottom"
+                              DurationIn="400"
+                              DurationOut="300"
+                              HasBackgroundAnimation="True"/>
+    </popups:PopupPage.Animation>
+    <ContentPage.Resources>
+        <Style TargetType="BoxView"
+                   x:Key="SeparadorBoxView">
+            <Setter Property="HeightRequest"
+                        Value="2"/>
+            <Setter Property="Color"
+                        Value="#979797"/>
+            <Setter Property="Opacity"
+                        Value="0.1"/>
+
+        </Style>
+    </ContentPage.Resources>
     <Grid Margin="0,200,0,0">
-        <BoxView BackgroundColor="WhiteSmoke"
+        <BoxView BackgroundColor="White"
                  CornerRadius="20,20,0,0"/>
-        <StackLayout>
+        <StackLayout Padding="16" Spacing="15">
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancelar"
                         BackgroundColor="Transparent"
-                        TextColor="Black"/>
+                        TextColor="#373660"
+                        Command="{Binding CancelarCommand}"/>
                 <Label Text="Selecciona tu pais"
                        FontSize="18"
                        FontAttributes="Bold"
                        VerticalTextAlignment="Center"
-                       HorizontalOptions="CenterAndExpand"/>
+                       HorizontalOptions="CenterAndExpand"
+                       TextColor="#373660"/>
                 <Button Text="Confirmar"
                         BackgroundColor="Transparent"
-                        TextColor="Black"/>
+                        TextColor="#373660"
+                        Command="{Binding ConfirmarPaisCommand}"/>
             </StackLayout>
+            <BoxView Style="{StaticResource SeparadorBoxView}"/>
+            <Frame Padding="5"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   BorderColor="Silver">
+                <SearchBar Placeholder="Busca tu pais..."
+                           PlaceholderColor="silver"
+                           BackgroundColor="White" />
+            </Frame>
+            <Label Text="Seleccionado"
+                   FontSize="14"
+                   TextColor="#373660"/>
+            <Frame CornerRadius="18"
+                   HasShadow="False">
+                <StackLayout Orientation="Horizontal">
+                    <svg:SvgCachedImage HeightRequest="26" WidthRequest="26" Source="{Binding SelectPais.IconoUrl}"/>
+                    <Label Text="{Binding SelectPais.Pais}"
+                           FontAttributes="Bold"
+                           TextColor="White"/>
+                </StackLayout>
+                <Frame.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#89A4BC"
+                                      Offset="0.5"/>
+                        <GradientStop Color="#3f51b5"
+                                      Offset="0.5"/>
+                    </LinearGradientBrush>
+                </Frame.Background>
+            </Frame>
+            <BoxView Style="{StaticResource SeparadorBoxView}"/>
+            <Label Text="Paises"
+                   FontSize="14"
+                   TextColor="#373660"/>
+            <CollectionView ItemsSource="{Binding ListaPaises}"
+                            x:Name="listaPaisesItems">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="20"
+                                       Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <svg:SvgCachedImage Source="{Binding IconoUrl}"
+                                                    HeightRequest="26"/>
+                                <Label Text="{Binding Pais}"
+                                       FontSize="18"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding CodigoPais, StringFormat='+{0}'}"
+                                       FontSize="18"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="EndAndExpand" />
+                            </StackLayout>
+                            <BoxView Style="{StaticResource SeparadorBoxView}"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Path=BindingContext.SeleccionarPaisCommand, Source={x:Reference listaPaisesItems}}"
+                                    CommandParameter="{Binding .}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </Grid>
-</ContentPage>
+</popups:PopupPage>

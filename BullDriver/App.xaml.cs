@@ -12,7 +12,7 @@ namespace BullDriver
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage( new ListaPaises());
+            MainPage = new NavigationPage( new Empezar());
         }
 
         protected override void OnStart()
