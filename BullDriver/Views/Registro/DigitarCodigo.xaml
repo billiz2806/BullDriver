@@ -12,7 +12,8 @@
         <Grid ColumnDefinitions="*,*">
             <material:MaterialCodeEntry Length="4"
                                         Keyboard="Numeric"
-                                        FontSize="20" />
+                                        FontSize="20" 
+                                        Text="{Binding TxtCodigo}"/>
         </Grid>
         <Frame CornerRadius="30"
                 HorizontalOptions="FillAndExpand"
@@ -50,6 +51,9 @@
                        HeightRequest="30"
                        HorizontalOptions="End"
                        Margin="0,0,20,0"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ValidadCodigoCommand}"/>
+                    </StackLayout.GestureRecognizers>
                 </StackLayout>
             </Frame>
         </StackLayout>

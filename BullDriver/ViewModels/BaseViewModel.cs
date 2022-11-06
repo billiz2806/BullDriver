@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -87,6 +89,19 @@ namespace BullDriver.ViewModels
             backingFieled = value;
 
             OnPropertyChanged(propertyName);
+        }
+    
+        public string PrimerLetraMayuscula(string objeto)
+        {
+            try
+            {
+                string input = objeto.ToString().ToLower() ?? throw new Exception();
+                return input.First().ToString().ToUpper() + input.Substring(1);
+            }
+            catch 
+            {
+                return string.Empty;
+            }
         }
     }
 }

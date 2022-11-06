@@ -59,5 +59,24 @@ namespace BullDriver.Datos
                 return pais;
             }
         }
+
+        public List<Paises> ListaBusquedaPaisesPorNombre(string pais)
+        {
+            var phoneNumberUtil = PhoneNumberUtil.GetInstance();
+            var listaPaises = new List<Paises>();
+            var isoPaises = ObtenerPisesIso3166();
+            var regionInfo = isoPaises.FirstOrDefault(p => p.EnglishName == pais);
+            var paises = new Paises();
+            if (regionInfo != null)
+            {
+                paises.CodigoPais = phoneNumberUtil.GetCountryCodeForRegion(regionInfo.TwoLetterISORegionName).ToString();
+                paises.Pais = regionInfo.EnglishName;
+                paises.IconoUrl = $"https://hatscripts.github.io/circle-flags/flags/{regionInfo.TwoLetterISORegionName.ToLower()}.svg";
+
+
+                listaPaises.Add(paises);
+            }
+            return listaPaises;
+        }
     }
 }

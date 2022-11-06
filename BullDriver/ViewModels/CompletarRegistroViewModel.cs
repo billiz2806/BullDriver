@@ -84,9 +84,9 @@ namespace BullDriver.ViewModels
                 TwilioClient.Init(accountSid, authToken);
 
                 var messageOptions = new CreateMessageOptions(
-                    new PhoneNumber(TxtNumero));
+                    new PhoneNumber(SelectPaisDefault.CodigoPais + TxtNumero));
                 messageOptions.MessagingServiceSid = "MGccc6cc9cc938b86ba0c356be085ff501";
-                messageOptions.Body = "Usa" + randomSMS + " para validar tu cuenta en BullDriver";
+                messageOptions.Body = "Usa " + randomSMS + " para validar tu cuenta en BullDriver";
 
                 var message = MessageResource.Create(messageOptions);
                 Console.WriteLine(message.Body);
@@ -99,20 +99,17 @@ namespace BullDriver.ViewModels
                 await DisplayAlert("Alerta", ex.Message, "OK");
             }
         }
-
         public void MostrarPaises()
         {
             var funcion = new DataPaises();
             ListaPaises = funcion.MostrarPaises();
         }
-
         public void ObtenerDataPorPais()
         {
             var funcion = new DataPaises();
             SelectPaisDefault = funcion.MostrarPaisesPorNombre("Peru");
             SelectPais = funcion.MostrarPaisesPorNombre("Peru");
         }
-
         private void MostrarListaPaises()
         {
             var popup = new ListaPaises();
@@ -120,12 +117,10 @@ namespace BullDriver.ViewModels
             MostrarPaises();
             PopupNavigation.Instance.PushAsync(popup);
         }
-
         private void SeleccionarPais(Paises entidad)
         {
             SelectPais = entidad;
         }
-
         private void ConfirmarPais()
         {
             SelectPaisDefault = SelectPais;
@@ -135,8 +130,29 @@ namespace BullDriver.ViewModels
         {
             PopupNavigation.Instance.PopAsync();
         }
+        private void BuscarPais(string buscador)
+        {
+            buscador = PrimerLetraMayuscula(buscador);
+            var funcion = new DataPaises();
+            var lista = funcion.ListaBusquedaPaisesPorNombre(buscador);
+
+            if (string.IsNullOrWhiteSpace(buscador))
+            {
+                ListaPaises = new List<Paises>();
+                MostrarPaises();
+            }
+            else
+            {
+                if(lista.Count > 0)
+                {
+                    ListaPaises = new List<Paises>();
+                    ListaPaises = lista;
+                }
+            }
+        }
         #endregion
         #region COMANDOS
+        public ICommand BuscarPaisCommand => new Command<string>(BuscarPais);
         public ICommand CancelarCommand => new Command(Cancelar);
         public ICommand ConfirmarPaisCommand => new Command(ConfirmarPais);
         public ICommand SeleccionarPaisCommand => new Command<Paises>(SeleccionarPais);

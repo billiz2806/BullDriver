@@ -4,7 +4,8 @@
              x:Class="BullDriver.Views.Reutilizables.ListaPaises"
              NavigationPage.HasNavigationBar="False"
              xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             xmlns:popups="http://rotorgames.com">
+             xmlns:popups="http://rotorgames.com"
+             xmlns:bh="clr-namespace:BullDriver.Behaviour">
     <popups:PopupPage.Animation>
         <popups:MoveAnimation PositionIn="Bottom"
                               PositionOut="Bottom"
@@ -25,6 +26,9 @@
         </Style>
     </ContentPage.Resources>
     <Grid Margin="0,200,0,0">
+        <Grid.Behaviors>
+            <bh:ListaPaisesBehaviour/>
+        </Grid.Behaviors>
         <BoxView BackgroundColor="White"
                  CornerRadius="20,20,0,0"/>
         <StackLayout Padding="16" Spacing="15">
@@ -34,13 +38,13 @@
                         TextColor="#373660"
                         Command="{Binding CancelarCommand}"/>
                 <Label Text="Selecciona tu pais"
-                       FontSize="18"
+                       FontSize="16"
                        FontAttributes="Bold"
                        VerticalTextAlignment="Center"
                        HorizontalOptions="CenterAndExpand"
                        TextColor="#373660"/>
                 <Button Text="Confirmar"
-                        BackgroundColor="Transparent"
+                        BackgroundColor="White"
                         TextColor="#373660"
                         Command="{Binding ConfirmarPaisCommand}"/>
             </StackLayout>
@@ -51,7 +55,15 @@
                    BorderColor="Silver">
                 <SearchBar Placeholder="Busca tu pais..."
                            PlaceholderColor="silver"
-                           BackgroundColor="White" />
+                           BackgroundColor="White"
+                           x:Name="txtBuscador"
+                           TextColor="#373660">
+                    <SearchBar.Behaviors>
+                        <bh:Entrybuscador EventName="TextChanged"
+                                          Command="{Binding BuscarPaisCommand}"
+                                          CommandParameter="{Binding Text, Source={x:Reference txtBuscador}}"/>
+                    </SearchBar.Behaviors>
+                </SearchBar>
             </Frame>
             <Label Text="Seleccionado"
                    FontSize="14"
@@ -66,7 +78,7 @@
                 </StackLayout>
                 <Frame.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#89A4BC"
+                        <GradientStop Color="#5264C6"
                                       Offset="0.5"/>
                         <GradientStop Color="#3f51b5"
                                       Offset="0.5"/>
@@ -91,11 +103,13 @@
                                                     HeightRequest="26"/>
                                 <Label Text="{Binding Pais}"
                                        FontSize="18"
-                                       VerticalOptions="Center"/>
+                                       VerticalOptions="Center"
+                                       TextColor="#373660"/>
                                 <Label Text="{Binding CodigoPais, StringFormat='+{0}'}"
                                        FontSize="18"
                                        VerticalOptions="Center"
-                                       HorizontalOptions="EndAndExpand" />
+                                       HorizontalOptions="EndAndExpand"
+                                       TextColor="#373660"/>
                             </StackLayout>
                             <BoxView Style="{StaticResource SeparadorBoxView}"/>
                             <StackLayout.GestureRecognizers>
