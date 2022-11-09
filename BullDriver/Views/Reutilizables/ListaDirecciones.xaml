@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Reutilizables.ListaDirecciones">
+
+    <Grid BackgroundColor="White"
+          Padding="20">
+        <ScrollView>
+            <StackLayout>
+                <StackLayout BindableLayout.ItemsSource="{Binding ListaDirecciones}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate >
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" HeightRequest="50" Padding="10" >
+                                    <Frame Padding="5"
+                                       BackgroundColor="#373660"
+                                       CornerRadius="50"
+                                       VerticalOptions="StartAndExpand">
+                                        <Image Source="https://i.ibb.co/sjVc8fh/fijado.png"
+                                               HeightRequest="25"
+                                               />
+                                    </Frame>
+                                    <StackLayout Margin="10,0,0,0">
+                                        <Label Text="{Binding StructuredFormatting.MainText}"
+                                           TextColor="#373660"
+                                           FontSize="Subtitle"/>
+                                        <Label Text="{Binding StructuredFormatting.SecondaryText}"
+                                           TextColor="Gray"/>
+                                    </StackLayout>
+                                </StackLayout>
+                                <Line HeightRequest="2"
+                                  BackgroundColor="LightGray"
+                                  WidthRequest="500"
+                                  HorizontalOptions="CenterAndExpand"
+                                  Margin="0,-5"
+                                  Opacity="0.3"/>
+                            </StackLayout>
+                            
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HeightRequest="50" Padding="10" HorizontalOptions="CenterAndExpand">
+                    <Frame Padding="5"
+                           BackgroundColor="#FCC833"
+                           CornerRadius="50"
+                           VerticalOptions="CenterAndExpand">
+                        <Image Source="https://i.ibb.co/sjVc8fh/fijado.png"
+                               HeightRequest="25"/>
+                    </Frame>
+                    <Label Text="Fija la ubicacion en el mapa"
+                           TextColor="#373660"
+                           FontSize="Subtitle"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           Margin="10,0,0,0"/>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+        
+        
+    </Grid>
+</ContentView>

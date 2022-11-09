@@ -1,4 +1,5 @@
 ﻿using BullDriver.Views.Menu;
+using BullDriver.Views.Navegacion;
 using BullDriver.Views.Registro;
 using BullDriver.Views.Reutilizables;
 using Xamarin.Forms;
@@ -12,7 +13,7 @@ namespace BullDriver
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage( new Empezar());
+            MainPage = new NavigationPage( new AdondeVamos());
         }
 
         protected override void OnStart()

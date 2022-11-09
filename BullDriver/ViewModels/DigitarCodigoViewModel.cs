@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using BullDriver.Views.Menu;
+using System.IO;
 
 namespace BullDriver.ViewModels
 {
@@ -33,6 +34,7 @@ namespace BullDriver.ViewModels
         {
             if (TxtCodigo == codigoRecibido)
             {
+                CrearArchivo();
                 await Navigation.PushAsync(new MenuPrincipal());
             }
             else
@@ -40,14 +42,38 @@ namespace BullDriver.ViewModels
                 await DisplayAlert("Alert", "Código Incorrecto", "OK");
             }
         }
-        public void ProcesoSimple()
+        public void CrearArchivo()
         {
+            var ruta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "auth.txt");
+            StreamWriter sm;
+            string estado = "1";
+            try
+            {
+                if (File.Exists(ruta)==false)
+                {
+                    sm = File.CreateText(ruta);
+                    sm.WriteLine(estado);
+                    sm.Flush();
+                    sm.Close();
+                }
+                else
+                {
+                    File.Delete(ruta);
+                    sm = File.CreateText(ruta);
+                    sm.WriteLine(estado);
+                    sm.Flush();
+                    sm.Close();
+                }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
         #endregion
         #region COMANDOS
         public ICommand ValidadCodigoCommand => new Command(ValidadCodigo);
-        public ICommand ProcesoSimpcommand => new Command(ProcesoSimple);
         #endregion
     }
 }

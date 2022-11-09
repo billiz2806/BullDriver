@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Navegacion.AdondeVamos"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:shadow="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.shadows"
+             xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             xmlns:reutilizables="clr-namespace:BullDriver.Views.Reutilizables"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit">
+
+    <Grid BackgroundColor="White">
+        <Grid RowDefinitions="auto,*">
+            <shadow:Shadows>
+                <StackLayout Spacing="10" Padding="20,10" BackgroundColor="White">
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="https://i.ibb.co/k5gTQFK/flecha-izquierda-2.png"
+                           HeightRequest="20"
+                           HorizontalOptions="Start"/>
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="CenterAndExpand">
+                            <Frame CornerRadius="20"
+                                   VerticalOptions="Center"
+                                   Padding="0"
+                                   HasShadow="False">
+                                <Frame.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="White"
+                                                          Offset="0.1"/>
+                                            <GradientStop Color="White"
+                                                          Offset="0.1"/>
+                                            <GradientStop Color="#E9E9E9"
+                                                          Offset="0.1"/>
+                                            <GradientStop Color="LightGray"
+                                                          Offset="1.0"/>
+                                        </GradientStopCollection>
+                                    </RadialGradientBrush>
+                                </Frame.Background>
+                                <Image Source="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                       HeightRequest="17"
+                                       Margin="4"/>
+
+                            </Frame>
+                            <Label Text="Para Mi"
+                                   VerticalOptions="Center"
+                                   TextColor="Black"/>
+                            <Image Source="https://i.ibb.co/64647fr/flecha-hacia-abajo.png"
+                                   HeightRequest="10"/>
+
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout VerticalOptions="Center"
+                                         Margin="0,0,12,0">
+                            <BoxView BackgroundColor="Black"
+                                         HeightRequest="10"
+                                         WidthRequest="10"
+                                         CornerRadius="10"
+                                         HorizontalOptions="Center"/>
+                            <Line HeightRequest="50"
+                                  BackgroundColor="LightGray"
+                                  WidthRequest="2"
+                                  HorizontalOptions="Center"
+                                  Margin="0,-5"/>
+                            <BoxView BackgroundColor="LightGray"
+                                         HeightRequest="10"
+                                         WidthRequest="10"
+                                         HorizontalOptions="Center"/>
+
+                        </StackLayout>
+                        <StackLayout  HorizontalOptions="FillAndExpand" >
+                            <Frame BackgroundColor="#F9F9F9"
+                                   HasShadow="False"
+                                   Padding="2,1"
+                                   CornerRadius="5">
+                                <SearchBar FontSize="Subtitle"
+                                           TextColor="#373660"
+                                           TranslationX="-12"
+                                           x:Name="txtOrigen"
+                                           Text="{Binding TxtOrigen, Mode=TwoWay}"
+                                           >
+                                    <SearchBar.Behaviors>
+                                        <toolkit:EventToCommandBehavior
+                                            EventName="TextChanged"
+                                            Command="{Binding BuscarDireccionesCommand}"/>
+                                    </SearchBar.Behaviors>
+                                </SearchBar>
+                            </Frame>
+                            <Frame BackgroundColor="#F9F9F9"
+                                   HasShadow="False"
+                                   Padding="2,1"
+                                   CornerRadius="5">
+                                <SearchBar FontSize="Subtitle"
+                                           TextColor="#373660"
+                                           TranslationX="-12"
+                                           Placeholder="¿A donde Vamos?"
+                                           x:Name="txtDestino"/>
+                            </Frame>
+                        </StackLayout>
+                    </StackLayout>
+
+                </StackLayout> 
+            </shadow:Shadows>
+            <Frame Grid.Row="1"
+                   Padding="0"
+                   Margin="20,10"
+                   HasShadow="False"
+                   CornerRadius="10">
+                <maps:Map/>
+            </Frame>
+            <Button Text="Listo"
+                    Grid.Row="1"
+                    BackgroundColor="#373660"
+                    VerticalOptions="End"
+                    TextColor="White"
+                    HorizontalOptions="Center"
+                    WidthRequest="200"
+                    CornerRadius="20"
+                    Margin="30"
+                    FontAttributes="Bold"
+                    HeightRequest="40"/>
+            <reutilizables:ListaDirecciones Grid.Row="1"/>
+        </Grid>
+    </Grid>
+</ContentPage>

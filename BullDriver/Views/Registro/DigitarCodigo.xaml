@@ -6,7 +6,7 @@
     <StackLayout Padding="20"
                  BackgroundColor="White"
                  Spacing="20">
-        <Label Text="Ingrese el codigo de 4 digitos que se envio al 956525415"
+        <Label Text="Ingrese el codigo de 4 digitos que se envio al 999999"
                FontSize="Medium"
                TextColor="#373660"/>
         <Grid ColumnDefinitions="*,*">
