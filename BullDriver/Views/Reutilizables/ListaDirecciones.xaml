@@ -7,7 +7,7 @@
           Padding="20">
         <ScrollView>
             <StackLayout>
-                <StackLayout BindableLayout.ItemsSource="{Binding ListaDirecciones}">
+                <StackLayout BindableLayout.ItemsSource="{Binding ListaDirecciones}" x:Name="listDireccion">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate >
                             <StackLayout>
@@ -34,6 +34,10 @@
                                   HorizontalOptions="CenterAndExpand"
                                   Margin="0,-5"
                                   Opacity="0.3"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectDireccionCommand, Source={x:Reference listDireccion}}"
+                                                          CommandParameter="{Binding .}"/>
+                                </StackLayout.GestureRecognizers>
                             </StackLayout>
                             
                         </DataTemplate>

@@ -69,33 +69,56 @@
 
                         </StackLayout>
                         <StackLayout  HorizontalOptions="FillAndExpand" >
-                            <Frame BackgroundColor="#F9F9F9"
+                            <StackLayout>
+                                <Frame BackgroundColor="#F9F9F9"
                                    HasShadow="False"
                                    Padding="2,1"
                                    CornerRadius="5">
-                                <SearchBar FontSize="Subtitle"
+                                    <SearchBar FontSize="Subtitle"
                                            TextColor="#373660"
                                            TranslationX="-12"
                                            x:Name="txtOrigen"
+                                           IsEnabled="{Binding EnableTxtOrigen}"
                                            Text="{Binding TxtOrigen, Mode=TwoWay}"
                                            >
-                                    <SearchBar.Behaviors>
-                                        <toolkit:EventToCommandBehavior
+                                        <SearchBar.Behaviors>
+                                            <toolkit:EventToCommandBehavior
                                             EventName="TextChanged"
-                                            Command="{Binding BuscarDireccionesCommand}"/>
-                                    </SearchBar.Behaviors>
-                                </SearchBar>
-                            </Frame>
-                            <Frame BackgroundColor="#F9F9F9"
+                                            Command="{Binding BuscarDireccionesCommand}"
+                                            CommandParameter="{Binding Text,Source={x:Reference txtOrigen}}"/>
+                                        </SearchBar.Behaviors>
+                                    </SearchBar>
+                                </Frame>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectOrigenCommand}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <StackLayout>
+                                <Frame BackgroundColor="#F9F9F9"
                                    HasShadow="False"
                                    Padding="2,1"
                                    CornerRadius="5">
-                                <SearchBar FontSize="Subtitle"
+                                    <SearchBar FontSize="Subtitle"
                                            TextColor="#373660"
                                            TranslationX="-12"
                                            Placeholder="¿A donde Vamos?"
-                                           x:Name="txtDestino"/>
-                            </Frame>
+                                           x:Name="txtDestino"
+                                           IsEnabled="{Binding EnableTxtDestino}"
+                                           Text="{Binding TxtDestino, Mode=TwoWay}">
+                                        <SearchBar.Behaviors>
+                                            <toolkit:EventToCommandBehavior
+                                            EventName="TextChanged"
+                                            Command="{Binding BuscarDireccionesCommand}"
+                                            CommandParameter="{Binding Text,Source={x:Reference txtDestino}}"/>
+                                        </SearchBar.Behaviors>
+                                    </SearchBar>
+                                </Frame>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectDestinoCommand}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            
+                            
                         </StackLayout>
                     </StackLayout>
 

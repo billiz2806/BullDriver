@@ -9,5 +9,6 @@ namespace BullDriver.Services
     public interface IGoogleMapsApiService
     {
         Task<GooglePlaceAutoCompleteResult> ApiPlaces(string text);
+        Task<GooglePlace> ApiPlacesDetails(string placeId);
     }
 }
