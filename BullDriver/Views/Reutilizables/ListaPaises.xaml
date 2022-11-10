@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+<popups:PopupPage 
+             xmlns:popups="http://rotorgames.com"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BullDriver.Views.Reutilizables.ListaPaises"
              NavigationPage.HasNavigationBar="False"
              xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             xmlns:popups="http://rotorgames.com"
              xmlns:bh="clr-namespace:BullDriver.Behaviour">
     <popups:PopupPage.Animation>
         <popups:MoveAnimation PositionIn="Bottom"
@@ -13,7 +14,7 @@
                               DurationOut="300"
                               HasBackgroundAnimation="True"/>
     </popups:PopupPage.Animation>
-    <ContentPage.Resources>
+    <popups:PopupPage.Resources>
         <Style TargetType="BoxView"
                    x:Key="SeparadorBoxView">
             <Setter Property="HeightRequest"
@@ -24,7 +25,7 @@
                         Value="0.1"/>
 
         </Style>
-    </ContentPage.Resources>
+    </popups:PopupPage.Resources>
     <Grid Margin="0,200,0,0">
         <Grid.Behaviors>
             <bh:ListaPaisesBehaviour/>
@@ -89,7 +90,7 @@
             <Label Text="Paises"
                    FontSize="14"
                    TextColor="#373660"/>
-            <CollectionView ItemsSource="{Binding ListaPaises}"
+            <CollectionView ItemsSource="{Binding ListaPais}"
                             x:Name="listaPaisesItems">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="20"

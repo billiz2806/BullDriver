@@ -16,7 +16,7 @@ namespace BullDriver.Views.Navegacion
         public AdondeVamos()
         {
             InitializeComponent();
-            BindingContext = new AdondeVamosViewModel(Navigation);
+            BindingContext = new AdondeVamosViewModel(Navigation, Mapa);
         }
     }
 }

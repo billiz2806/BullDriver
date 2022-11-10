@@ -19,7 +19,7 @@ namespace BullDriver.ViewModels
     {
         #region VARIABLES
         string _txtNumero;
-        List<Paises> _listaPaises;
+        List<Paises> _listaPais;
         Paises _selectPaisDefault;
         Paises _selectPais;
         public GoogleUser _googleUser { get; set; }
@@ -38,10 +38,10 @@ namespace BullDriver.ViewModels
             get { return _txtNumero; }
             set { SetValue(ref _txtNumero, value); }
         }
-        public List<Paises> ListaPaises
+        public List<Paises> ListaPais
         {
-            get { return _listaPaises; }
-            set { SetValue(ref _listaPaises, value); }
+            get { return _listaPais; }
+            set { SetValue(ref _listaPais, value); }
         }
         public Paises SelectPaisDefault
         {
@@ -102,7 +102,7 @@ namespace BullDriver.ViewModels
         public void MostrarPaises()
         {
             var funcion = new DataPaises();
-            ListaPaises = funcion.MostrarPaises();
+            ListaPais = funcion.MostrarPaises();
         }
         public void ObtenerDataPorPais()
         {
@@ -138,15 +138,15 @@ namespace BullDriver.ViewModels
 
             if (string.IsNullOrWhiteSpace(buscador))
             {
-                ListaPaises = new List<Paises>();
+                ListaPais = new List<Paises>();
                 MostrarPaises();
             }
             else
             {
                 if(lista.Count > 0)
                 {
-                    ListaPaises = new List<Paises>();
-                    ListaPaises = lista;
+                    ListaPais = new List<Paises>();
+                    ListaPais = lista;
                 }
             }
         }

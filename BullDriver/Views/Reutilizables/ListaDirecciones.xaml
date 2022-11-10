@@ -2,9 +2,9 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BullDriver.Views.Reutilizables.ListaDirecciones">
-
     <Grid BackgroundColor="White"
-          Padding="20">
+          Padding="20"
+          Margin="0,0,0,250">
         <ScrollView>
             <StackLayout>
                 <StackLayout BindableLayout.ItemsSource="{Binding ListaDirecciones}" x:Name="listDireccion">
@@ -39,7 +39,7 @@
                                                           CommandParameter="{Binding .}"/>
                                 </StackLayout.GestureRecognizers>
                             </StackLayout>
-                            
+
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
@@ -57,11 +57,12 @@
                            FontAttributes="Bold"
                            VerticalOptions="Center"
                            Margin="10,0,0,0"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FijarEnMapaCommand}"/>
+                    </StackLayout.GestureRecognizers>
                 </StackLayout>
-
             </StackLayout>
+
         </ScrollView>
-        
-        
     </Grid>
 </ContentView>

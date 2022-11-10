@@ -94,10 +94,11 @@
                                 </StackLayout.GestureRecognizers>
                             </StackLayout>
                             <StackLayout>
-                                <Frame BackgroundColor="#F9F9F9"
+                                <Frame 
+                                   BackgroundColor="#F9F9F9"
                                    HasShadow="False"
                                    Padding="2,1"
-                                   CornerRadius="5">
+                                   CornerRadius="5" >
                                     <SearchBar FontSize="Subtitle"
                                            TextColor="#373660"
                                            TranslationX="-12"
@@ -129,8 +130,12 @@
                    Margin="20,10"
                    HasShadow="False"
                    CornerRadius="10">
-                <maps:Map/>
+                <maps:Map x:Name="Mapa"/>
             </Frame>
+            <Image  Source="alfiler.png" Grid.Row="1"
+                   VerticalOptions="Center" HorizontalOptions="Center"
+                   WidthRequest="50"
+                   HeightRequest="50"/>
             <Button Text="Listo"
                     Grid.Row="1"
                     BackgroundColor="#373660"
@@ -142,7 +147,7 @@
                     Margin="30"
                     FontAttributes="Bold"
                     HeightRequest="40"/>
-            <reutilizables:ListaDirecciones Grid.Row="1"/>
+            <reutilizables:ListaDirecciones Grid.Row="1" IsVisible="{Binding VisibleListaDirecciones }"/>
         </Grid>
     </Grid>
 </ContentPage>

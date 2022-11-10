@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BullDriver.Android", "BullD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BullDriver.iOS", "BullDriver.iOS\BullDriver.iOS.csproj", "{E7369ABA-BB34-4185-9B9F-44403CE26B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BullDriver", "BullDriver\BullDriver.csproj", "{D386CD97-046F-49B9-BAA5-A37E03847246}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BullDriver", "BullDriver\BullDriver.csproj", "{D386CD97-046F-49B9-BAA5-A37E03847246}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
