@@ -10,5 +10,6 @@ namespace BullDriver.Services
     {
         Task<GooglePlaceAutoCompleteResult> ApiPlaces(string text);
         Task<GooglePlace> ApiPlacesDetails(string placeId);
+        Task<GoogleMatrix> CalcularDistanciaTiempo(string origen, string destino);
     }
 }

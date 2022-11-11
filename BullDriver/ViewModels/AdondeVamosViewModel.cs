@@ -1,5 +1,7 @@
-﻿using BullDriver.Models;
+﻿using BullDriver.Datos;
+using BullDriver.Models;
 using BullDriver.Services;
+using BullDriver.Views.Navegacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +30,18 @@ namespace BullDriver.ViewModels
         bool _selectDestino;
         bool _enableTxtOrigen;
         bool _enableTxtDestino;
+        bool _visibleTxtOrigen;
+        bool _visibleTxtDestino;
         bool _visibleListaDirecciones;
         bool _fijarMapa;
+        bool _visibleOfertar;
+        string _txtTarifa;
+        string _txtTarifaEmergente;
         Pin _punto = new Pin();
         Xamarin.Forms.GoogleMaps.Map _mapa;
+        public GoogleMatrix ParametrosMatrix { get; set; }
+
+
         #endregion
         #region CONSTRUCTOR
         public AdondeVamosViewModel(INavigation navigation, Xamarin.Forms.GoogleMaps.Map mapa)
@@ -39,12 +49,16 @@ namespace BullDriver.ViewModels
             Navigation = navigation;
             this._mapa = mapa;
             _mapa.PropertyChanged += _mapa_PropertyChanged;
+            VisibleTxtOrigen = true;
+            VisibleTxtDestino = true;
             EnableTxtOrigen = false;
             EnableTxtDestino = false;
             SelectDestino = false;
             SelectOrigen = false;
             VisibleListaDirecciones = false;
             FijarMapa = false;
+            VisibleOfertar = false;
+            TxtTarifa = "Ofresca su tarifa";
             PinActual();
         }
         #endregion
@@ -86,18 +100,59 @@ namespace BullDriver.ViewModels
             get { return _enableTxtDestino; }
             set { SetValue(ref _enableTxtDestino, value); }
         }
+
+        public bool VisibleTxtOrigen
+        {
+            get { return _visibleTxtOrigen; }
+            set { SetValue(ref _visibleTxtOrigen, value); }
+        }
+        public bool VisibleTxtDestino
+        {
+            get { return _visibleTxtDestino; }
+            set { SetValue(ref _visibleTxtDestino, value); }
+        }
         public bool VisibleListaDirecciones
         {
             get { return _visibleListaDirecciones; }
             set { SetValue(ref _visibleListaDirecciones, value); }
         }
         public bool FijarMapa
-        { 
+        {
             get { return _fijarMapa; }
             set { SetValue(ref _fijarMapa, value); }
         }
+
+        public bool VisibleOfertar
+        {
+            get { return _visibleOfertar; }
+            set { SetValue(ref _visibleOfertar, value); }
+        }
+
+        public string TxtTarifa
+        {
+            get { return _txtTarifa; }
+            set { SetValue(ref _txtTarifa, value); }
+        }
+        public string TxtTarifaEmergente
+        {
+            get { return _txtTarifaEmergente; }
+            set { SetValue(ref _txtTarifaEmergente, value); }
+        }
         #endregion
         #region PROCESOS
+        private void AgregarTarifa()
+        {
+            TxtTarifa = TxtTarifaEmergente;
+            OcultarOfertar();
+        }
+        private void MostrarOfertar()
+        {
+            VisibleOfertar = true;
+        }
+        private void OcultarOfertar()
+        {
+            VisibleOfertar = false;
+        }
         private async void _mapa_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (FijarMapa == false)
@@ -106,7 +161,7 @@ namespace BullDriver.ViewModels
             }
 
             var m = (Xamarin.Forms.GoogleMaps.Map)sender;
-
+            VisibleListaDirecciones = false;
             if (m.VisibleRegion != null)
             {
                 if (SelectOrigen == true)
@@ -123,7 +178,7 @@ namespace BullDriver.ViewModels
                 }
             }
         }
-        private async Task<string>ObtenerDireccion(double lt, double lg)
+        private async Task<string> ObtenerDireccion(double lt, double lg)
         {
             try
             {
@@ -145,7 +200,7 @@ namespace BullDriver.ViewModels
             VisibleListaDirecciones = true;
             var places = await _googleMapsApi.ApiPlaces(buscador);
             var placesResult = places.AutoCompletePlaces;
-            if (placesResult != null && placesResult.Count > 0) 
+            if (placesResult != null && placesResult.Count > 0)
             {
                 ListaDirecciones = new List<GooglePlaceAutoCompletePrediction>(placesResult);
             }
@@ -155,7 +210,7 @@ namespace BullDriver.ViewModels
             var coordenadas = await _googleMapsApi.ApiPlacesDetails(parametro.PlaceId);
             if (coordenadas != null)
             {
-                if(_selectOrigen== true)
+                if (_selectOrigen == true)
                 {
                     ltOrigen = coordenadas.Latitude;
                     lgOrigen = coordenadas.Longitude;
@@ -175,17 +230,21 @@ namespace BullDriver.ViewModels
             SelectOrigen = true;
             SelectDestino = false;
             EnableTxtOrigen = true;
+            VisibleTxtOrigen = false;
+            VisibleTxtDestino = true;
             EnableTxtDestino = false;
             VisibleListaDirecciones = true;
             FijarMapa = false;
         }
         private void seleccionarDestino()
         {
-            
+
             SelectDestino = true;
-            SelectOrigen = false ;
+            SelectOrigen = false;
             EnableTxtOrigen = false;
             EnableTxtDestino = true;
+            VisibleTxtOrigen = true;
+            VisibleTxtDestino = false;
             VisibleListaDirecciones = true;
             FijarMapa = false;
         }
@@ -245,16 +304,71 @@ namespace BullDriver.ViewModels
             VisibleListaDirecciones = false;
             EnableTxtOrigen = false;
             EnableTxtDestino = false;
+            VisibleTxtOrigen = true;
+            VisibleTxtDestino = true;
+
+        }
+
+        private async void InsertarPedido()
+        {
+            if (!string.IsNullOrWhiteSpace(TxtOrigen))
+            {
+                if (!string.IsNullOrWhiteSpace(TxtDestino))
+                {
+                    if (!string.IsNullOrWhiteSpace(TxtTarifa) && TxtTarifa != "Ofresca su tarifa")
+                    {
+                        var funcion = new DataPedidos();
+                        var parametros = new Pedido();
+                        var coorOrigen = ltOrigen.ToString().Replace(",", ".") + "," + lgOrigen.ToString().Replace(",", ".");
+                        var coorDestino = ltDestino.ToString().Replace(",", ".") + "," + lgDestino.ToString().Replace(",", ".");
+                        ParametrosMatrix = await _googleMapsApi.CalcularDistanciaTiempo(coorOrigen, coorDestino);
+                        parametros.Origen_lugar = TxtOrigen;
+                        parametros.Destino_lugar = TxtDestino;
+                        parametros.IdChofer = "Modelo";
+                        parametros.IdUser = "Modelo";
+                        parametros.Lt_lg_origen = coorOrigen;
+                        parametros.Lt_lg_destino = coorDestino;
+                        parametros.Estado = "PENDIENTE";
+                        parametros.Tiempo = ParametrosMatrix.Rows[0].Elements[0].Duration.Text;
+                        parametros.Tarifa = TxtTarifa;
+                        parametros.Distancia = ParametrosMatrix.Rows[0].Elements[0].Distance.Value.ToString();
+
+                        await funcion.InsertPedidos(parametros);
+                        await Navigation.PushAsync(new EsperarOfertas(parametros));
+                    }
+                    else
+                    {
+                        await DisplayAlert("Faltan Datos", "Ingrese una tarifa", "OK");
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Faltan Datos", "Seleccione un destino", "OK");
+                }
+            }
+            else
+            {
+              await  DisplayAlert("Faltan Datos", "Seleccione un origen", "OK");
+            }
+
+
+
+
 
         }
 
         #endregion
         #region COMANDOS
-        public ICommand SelectDireccionCommand => new Command<GooglePlaceAutoCompletePrediction>(async(p)=> await SeleccionarDireccion(p));
-        public ICommand BuscarDireccionesCommand => new Command<string>(async(b)=> await BuscarDirecciones(b));
+        public ICommand SelectDireccionCommand => new Command<GooglePlaceAutoCompletePrediction>(async (p) => await SeleccionarDireccion(p));
+        public ICommand BuscarDireccionesCommand => new Command<string>(async (b) => await BuscarDirecciones(b));
         public ICommand SelectOrigenCommand => new Command(seleccionarOrigen);
         public ICommand SelectDestinoCommand => new Command(seleccionarDestino);
         public ICommand FijarEnMapaCommand => new Command(FijarEnMapa);
+        public ICommand MostrarOfertarCommand => new Command(MostrarOfertar);
+        public ICommand OcultarOfertarCommand => new Command(OcultarOfertar);
+        public ICommand AgregarTarifaCommand => new Command(AgregarTarifa);
+        public ICommand InsertarPedidoCommand => new Command(InsertarPedido);
+
 
         #endregion
     }

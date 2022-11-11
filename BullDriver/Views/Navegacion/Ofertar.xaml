@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Navegacion.Ofertar">
+    <Grid>
+        <BoxView BackgroundColor="Black"
+                     Opacity="0.7"/>
+        <Frame Margin="10"
+                   CornerRadius="15"
+                   VerticalOptions="End">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center">
+                    <Label Text="S/"
+                               FontSize="40"
+                           TextColor="#373660"
+                               VerticalOptions="Center"/>
+                    <Entry Placeholder="0.00"
+                           FontSize="40"
+                           HorizontalTextAlignment="Center"
+                           PlaceholderColor="LightGray"
+                           TextColor="#373660"
+                               Keyboard="Numeric"
+                               WidthRequest="150"
+                           Text="{Binding TxtTarifaEmergente}"/>
+                </StackLayout>
+                <Label Text="Ofresca una tarifa razonable para que su solicitud sea mas atractiva"
+                           HorizontalOptions="Center"
+                       TextColor="#8483A7"
+                           HorizontalTextAlignment="Center"/>
+                <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center">
+                    <Image Source="https://i.ibb.co/9yrYypx/cheque.png"
+                               HeightRequest="20"/>
+                    <Label Text="Efectivo"
+                               FontSize="Medium"
+                               FontAttributes="Bold"
+                           TextColor="#373660"/>
+                </StackLayout>
+                <Line HeightRequest="1"
+                          BackgroundColor="LightGray"/>
+
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Cerrar"
+                                TextTransform="None"
+                                BackgroundColor="#3f51b5"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                HorizontalOptions="StartAndExpand"
+                                CornerRadius="10"
+                            TextColor="White"
+                                Command="{Binding OcultarOfertarCommand}"/>
+                    <Button Text="Hecho"
+                                TextTransform="None"
+                                BackgroundColor="#FCC833"
+                                CornerRadius="15"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="White"
+                                Command="{Binding AgregarTarifaCommand}"/> 
+
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentView>
