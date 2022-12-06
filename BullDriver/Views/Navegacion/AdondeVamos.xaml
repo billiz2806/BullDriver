@@ -195,5 +195,6 @@
             </Grid.GestureRecognizers>
         </Grid>
         <Navegacion:Ofertar IsVisible="{Binding VisibleOfertar }"/>
+        <Navegacion:EsperarOferta IsVisible="{Binding VisibleEsperarOferta}"/>
     </Grid>
 </ContentPage>

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Navegacion.ListaChoferes"
+             xmlns:progress="clr-namespace:JimBobBennett.AnimatedProgress;assembly=JimBobBennett.AnimatedProgress">
+    <Grid RowDefinitions="auto,*">
+        <BoxView BackgroundColor="black"
+                 Opacity="0.5"
+                 Grid.RowSpan="2"/>
+        <Frame>
+            <Button Text="Cancelar"
+                    HorizontalOptions="EndAndExpand"
+                    CornerRadius="10"/>
+        </Frame>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding ListaOfertas}"
+                        x:Name="listaOfertasName">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Frame CornerRadius="10"
+                               Margin="12"
+                               Padding="0">
+                            <Grid RowDefinitions="*,auto"
+                                  ColumnDefinitions="auto,*">
+                                <ProgressBar Grid.ColumnSpan="2"
+                                             VerticalOptions="Start"
+                                             Margin="0,-5,0,0"
+                                             ProgressColor="#57E18F"
+                                             progress:AttachedProperties.AnimatedProgress="{Binding Progress}"
+                                             progress:AttachedProperties.AnimatedProgressAnimationTime="1200"
+                                             progress:AttachedProperties.AnimatedProgressEasing="Linear"/>
+                                <StackLayout Padding="20,20,20,0">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame CornerRadius="50"
+                                               HeightRequest="80"
+                                               WidthRequest="80"
+                                               VerticalOptions="CenterAndExpand"
+                                               Padding="0">
+                                            <Image Source="https://segurossura.com/content/uploads/sites/10/2017/12/seguros-sura-5-preguntas-para-saber-si-eres-buen-conductor-mini.jpg"
+                                                   HeightRequest="80"
+                                                   WidthRequest="80"
+                                                   Aspect="AspectFill"/>
+                                        </Frame>
+                                        <StackLayout Margin="20,0,0,0">
+                                            <Label Text="Toyota tercel"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#373660"
+                                                   FontSize="Subtitle"/>
+                                            <Label Text="Gabriel Jesus"
+                                                   TextColor="#373660"
+                                                   FontSize="Subtitle"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Image Source="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Estrella_amarilla.png/800px-Estrella_amarilla.png"
+                                                       HeightRequest="30"/>
+                                                <Label Text="5.0"
+                                                       TextColor="#373660"
+                                                       FontSize="Subtitle"
+                                                       VerticalOptions="Center"/>
+                                                <Label Text="(13)"
+                                                       TextColor="#373660"
+                                                       FontSize="Subtitle"
+                                                       VerticalOptions="Center"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Grid.Column="1"
+                                             Padding="20,15,60,0"
+                                             HorizontalOptions="End">
+                                    <Label Text="S/. 5"
+                                           TextColor="#373660"
+                                           FontAttributes="Bold"
+                                           FontSize="Large"/>
+                                    <Label TextColor="#373660"
+                                           Text="{Binding TimeSpan}"/>
+                                    <Label Text="5.5 km"
+                                           TextColor="#373660"
+                                           FontSize="Subtitle"/>
+                                </StackLayout>
+                                <Grid ColumnDefinitions="*,*"
+                                      Grid.Row="1"
+                                      Grid.ColumnSpan="2"
+                                      Margin="10,0,10,10">
+                                    <Button Text="Rechazar"
+                                            TextColor="white"
+                                            BackgroundColor="LightGray"
+                                            TextTransform="None"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            CornerRadius="10"/>
+                                    <Button Text="Aceptar"
+                                            Grid.Column="1"
+                                            TextColor="White"
+                                            BackgroundColor="#FFC82C"
+                                            TextTransform="None"
+                                            FontAttributes="Bold"
+                                            FontSize="18"
+                                            CornerRadius="10"
+                                            Command="{Binding Path=BindingContext.ConfirmarPedidoCommand, 
+                                                                Source={x:Reference listaOfertasName}}"
+                                            CommandParameter="{Binding .}"/>
+
+                                </Grid>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentView>

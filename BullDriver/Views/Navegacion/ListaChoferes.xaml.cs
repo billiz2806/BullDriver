@@ -1,5 +1,4 @@
-﻿using BullDriver.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace BullDriver.Views.Navegacion
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EsperarOfertas : ContentPage
+    public partial class ListaChoferes : ContentView
     {
-        public EsperarOfertas(Pedido parametros)
+        public ListaChoferes()
         {
             InitializeComponent();
         }

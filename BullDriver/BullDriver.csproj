@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
+    <PackageReference Include="JimBobBennett.AnimatedProgress" Version="1.1.0" />
     <PackageReference Include="libphonenumber-csharp" Version="8.12.57" />
     <PackageReference Include="Plugin.MaterialDesignControls" Version="1.12.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
@@ -27,7 +28,10 @@
     <EmbeddedResource Update="Views\Navegacion\AdondeVamos.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Navegacion\EsperarOfertas.xaml">
+    <EmbeddedResource Update="Views\Navegacion\EsperarOferta.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Navegacion\ListaChoferes.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Navegacion\Ofertar.xaml">

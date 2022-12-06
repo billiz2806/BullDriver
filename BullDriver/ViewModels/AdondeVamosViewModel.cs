@@ -4,6 +4,7 @@ using BullDriver.Services;
 using BullDriver.Views.Navegacion;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace BullDriver.ViewModels
     public class AdondeVamosViewModel : BaseViewModel
     {
         #region VARIABLES
+        ObservableCollection<OfertaConductor> _listaOfertas;
         List<GooglePlaceAutoCompletePrediction> _listaDirecciones;
         private readonly IGoogleMapsApiService _googleMapsApi = new GoogleMapsApiService();
 
@@ -39,6 +41,9 @@ namespace BullDriver.ViewModels
         string _txtTarifaEmergente;
         Pin _punto = new Pin();
         Xamarin.Forms.GoogleMaps.Map _mapa;
+        bool _visibleOferta;
+        bool _visibleEsperarOferta;
+        Pedido _modelPedido;
         public GoogleMatrix ParametrosMatrix { get; set; }
 
 
@@ -59,10 +64,31 @@ namespace BullDriver.ViewModels
             FijarMapa = false;
             VisibleOfertar = false;
             TxtTarifa = "Ofresca su tarifa";
-            PinActual();
+            VisibleOferta = false;
+            VisibleEsperarOferta = false;
+
+
+            Task.Run(PinActual);
+            ListarOfertas();
+            ActivarTimer();
         }
         #endregion
         #region OBJETOS
+        public bool VisibleEsperarOferta
+        {
+            get { return _visibleEsperarOferta; }
+            set { SetValue(ref _visibleEsperarOferta, value); }
+        }
+        public bool VisibleOferta
+        {
+            get { return _visibleOferta; }
+            set { SetValue(ref _visibleOferta, value); }
+        }
+        public ObservableCollection<OfertaConductor> ListaOfertas
+        {
+            get { return _listaOfertas; }
+            set { SetValue(ref _listaOfertas, value); }
+        }
         public List<GooglePlaceAutoCompletePrediction> ListaDirecciones
         {
             get { return _listaDirecciones; }
@@ -139,6 +165,8 @@ namespace BullDriver.ViewModels
             set { SetValue(ref _txtTarifaEmergente, value); }
         }
         #endregion
+
+
         #region PROCESOS
         private void AgregarTarifa()
         {
@@ -308,7 +336,6 @@ namespace BullDriver.ViewModels
             VisibleTxtDestino = true;
 
         }
-
         private async void InsertarPedido()
         {
             if (!string.IsNullOrWhiteSpace(TxtOrigen))
@@ -334,7 +361,7 @@ namespace BullDriver.ViewModels
                         parametros.Distancia = ParametrosMatrix.Rows[0].Elements[0].Distance.Value.ToString();
 
                         await funcion.InsertPedidos(parametros);
-                        await Navigation.PushAsync(new EsperarOfertas(parametros));
+                        VisibleOfertar = true;
                     }
                     else
                     {
@@ -356,9 +383,57 @@ namespace BullDriver.ViewModels
 
 
         }
+        public void ListarOfertas()
+        {
+            var funcion = new DataOfertasConductores();
+            var parametros = new Pedido();
+            parametros.IdUser = "Modelo";
+            ListaOfertas = funcion.ListaOfertas(parametros);
+        }
+        private void ActivarTimer()
+        {
+            var tiempo = TimeSpan.FromSeconds(1);
+            Device.StartTimer(tiempo, () =>
+            {
+                if(ListaOfertas == null)
+                {
+                    return true;
+                }
+                if (ListaOfertas.Count > 0)
+                {
+                    VisibleOferta = true;
+                    VisibleEsperarOferta = true;
+                    foreach (var item in ListaOfertas)
+                    {
+                        var timeSpan = item.TimeSpan - TimeSpan.FromSeconds(1);
+                        item.TimeSpan = timeSpan;
+                        String[] cadena = timeSpan.ToString().Split(':');   //00:00:20 separa los valores de la hora en un array
+                        var time = cadena[2];                               //obtiene los segundos
+                        item.Progress = Convert.ToDouble(time) * 0.05;        //conbierte el valor de los segundos a rango de 0 a 1 para la lectura del pogressbar
+
+                    }
+                }
+                else
+                {
+                    VisibleOferta = false;
+                    VisibleEsperarOferta = false;
+                }
+                return true;
+            });
+        }
+        private async void ConfirmarPedido(OfertaConductor parametros)
+        {
+            var funcion = new DataPedidos();
+            _modelPedido = new Pedido();
+            _modelPedido.IdUser = "Modelo";
+            _modelPedido.Tarifa = parametros.Tarifa;
+            _modelPedido.IdChofer = parametros.IdConductor;
+            await funcion.ConfirmarPedido(_modelPedido);
+        }
 
         #endregion
         #region COMANDOS
+        public ICommand ConfirmarPedidoCommand => new Command<OfertaConductor>(ConfirmarPedido);
         public ICommand SelectDireccionCommand => new Command<GooglePlaceAutoCompletePrediction>(async (p) => await SeleccionarDireccion(p));
         public ICommand BuscarDireccionesCommand => new Command<string>(async (b) => await BuscarDirecciones(b));
         public ICommand SelectOrigenCommand => new Command(seleccionarOrigen);
