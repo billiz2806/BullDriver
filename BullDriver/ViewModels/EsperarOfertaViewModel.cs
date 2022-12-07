@@ -62,7 +62,7 @@ namespace BullDriver.ViewModels
 
                         if (Convert.ToDouble(time) == 0)
                         {
-                            EliminarOferta(item);
+                            //EliminarOferta(item);
                         }
                     }
                 }
@@ -81,11 +81,11 @@ namespace BullDriver.ViewModels
             ListaOfertas = funcion.ListaOfertas(parametros);
         }
 
-        public async void EliminarOferta(OfertaConductor parametros)
-        {
-            var funcion = new DataOfertasConductores();
-            await funcion.EliminarOferta(parametros);
-        }
+        //public async void EliminarOferta(OfertaConductor parametros)
+        //{
+        //    var funcion = new DataOfertasConductores();
+        //    await funcion.EliminarOferta(parametros);
+        //}
 
         #endregion
 

@@ -48,7 +48,7 @@ namespace BullDriver.Datos
             return data;
         }
 
-        public async Task EliminarOferta(OfertaConductor parametros)
+        public async Task EliminarOferta(Pedido parametros)
         {
             var data = (await Constantes.firebase
                 .Child("OfertasConductores")
@@ -60,19 +60,31 @@ namespace BullDriver.Datos
                 .Child(data.Key)
                 .DeleteAsync();
         }
-
+        public async Task<List<OfertaConductor>> ListOfertasAEliminar(Pedido parametros)
+        {
+            return (await Constantes.firebase
+                .Child("OfertasConductores")
+                .OnceAsync<OfertaConductor>())
+                .Where(a => a.Object.IdPedido == parametros.IdPedido)
+                .Select(item => new OfertaConductor
+                {
+                    IdOferta = item.Key,
+                    IdPedido = item.Object.IdPedido,
+                }).ToList();
+        }
         public async Task EliminarListaOfertas(Pedido parametrosIdUser)
         {
             try
             {
-                var lista = ListaOfertas(parametrosIdUser);
-                var parametro = new OfertaConductor();
-
-                foreach (var item in lista)
+                var lista = await ListOfertasAEliminar(parametrosIdUser);
+                if(lista.Count > 0)
                 {
-                    parametro.IdPedido = item.IdPedido;
-                    await EliminarOferta(parametro);
+                    foreach (var item in lista)
+                    {
+                        await EliminarOferta(parametrosIdUser);
+                    }
                 }
+
             }
             catch (Exception)
             {

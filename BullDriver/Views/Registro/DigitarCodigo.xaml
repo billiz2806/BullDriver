@@ -13,7 +13,9 @@
             <material:MaterialCodeEntry Length="4"
                                         Keyboard="Numeric"
                                         FontSize="20" 
+                                        IsEnabled="True"
                                         Text="{Binding TxtCodigo}"/>
+            <Entry Text="{Binding TxtCodigo}"></Entry>
         </Grid>
         <Frame CornerRadius="30"
                 HorizontalOptions="FillAndExpand"
