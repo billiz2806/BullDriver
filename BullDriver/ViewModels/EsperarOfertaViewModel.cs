@@ -60,10 +60,10 @@ namespace BullDriver.ViewModels
                         var time = cadena[2];                               //obtiene los segundos
                         item.Progress = Convert.ToDouble(time) * 0.05;        //conbierte el valor de los segundos a rango de 0 a 1 para la lectura del pogressbar
 
-                        if (Convert.ToDouble(time) == 0)
-                        {
-                            //EliminarOferta(item);
-                        }
+                        //if (Convert.ToDouble(time) == 0)
+                        //{
+                        //    //EliminarOferta(item);
+                        //}
                     }
                 }
                 else
@@ -73,19 +73,14 @@ namespace BullDriver.ViewModels
                 return true;
             });
         }
-        public void ListarOfertas()
+        public async void ListarOfertas()
         {
             var funcion = new DataOfertasConductores();
             var parametros = new Pedido();
             parametros.IdUser = "Modelo";
-            ListaOfertas = funcion.ListaOfertas(parametros);
+            ListaOfertas = await funcion.ListaOfertas(parametros);
         }
 
-        //public async void EliminarOferta(OfertaConductor parametros)
-        //{
-        //    var funcion = new DataOfertasConductores();
-        //    await funcion.EliminarOferta(parametros);
-        //}
 
         #endregion
 

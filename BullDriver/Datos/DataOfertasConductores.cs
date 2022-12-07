@@ -13,22 +13,18 @@ namespace BullDriver.Datos
 {
     public class DataOfertasConductores
     {
-        string idPedido;
-        private async void obtenerPedido(Pedido parametros)
+        public async Task< ObservableCollection<OfertaConductor>> ListaOfertas(Pedido parametros)
         {
-            var funcion = new DataPedidos();
-            idPedido = await funcion.ObtenerIdPedido(parametros);
-        }
-        public ObservableCollection<OfertaConductor> ListaOfertas(Pedido parametros)
-        {
-            obtenerPedido(parametros);
             var data = new ObservableCollection<OfertaConductor>();
             var collection = Constantes.firebase
                 .Child("OfertasConductores")
                 .AsObservable<OfertaConductor>()
-                .Subscribe((item) =>
+                .Subscribe(async (item) =>
                 {
-                    if (item.Object.IdPedido == idPedido)
+                    var funcion = new DataPedidos();
+                    parametros.IdPedido = await funcion.ObtenerIdPedido(parametros);
+                    //parametros.IdPedido = "-NIdf34Z9Ff9lUPtyS1E";
+                    if (item.Object.IdPedido == parametros.IdPedido)
                     {
                         if (item.Key != item.Object.IdOferta)
                         {

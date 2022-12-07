@@ -34,18 +34,38 @@ namespace BullDriver.Datos
         }
         public async Task<string> ObtenerIdPedido(Pedido parametros)
         {
-            var data = (await Constantes.firebase
+            var idPedido = "sin data";
+            int contador = 0;
+            contador = await ValidarPedido(parametros);
+
+            if (contador > 0)
+            {
+                var data = (await Constantes.firebase
                 .Child("Pedidos")
                 .OnceAsync<Pedido>())
                 .Where(a => a.Object.IdUser == parametros.IdUser)
                 .Where(b => b.Object.Estado == "PENDIENTE")
                 .FirstOrDefault();
-            string idPedido = "-";
-            if (data != null)
-            {
-                idPedido = data.Key;
+                if (data != null)
+                {
+                    idPedido = data.Key;
+                    return idPedido;
+                }
             }
             return idPedido;
+
+        }
+        private async Task<int> ValidarPedido(Pedido parametros)
+        {
+            int contador = 0;
+            var data = (await Constantes.firebase
+                .Child("Pedidos")
+                .OnceAsync<Pedido>())
+                .Where(a => a.Object.IdUser == parametros.IdUser)
+                .Where(b => b.Object.Estado == "PENDIENTE");
+
+            contador = data.Count();
+            return contador;
         }
         public async Task ConfirmarPedido(Pedido parametros)
         {

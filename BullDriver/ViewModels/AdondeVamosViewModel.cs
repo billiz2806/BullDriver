@@ -44,6 +44,7 @@ namespace BullDriver.ViewModels
         bool _visibleOferta;
         bool _visibleEsperarOferta;
         Pedido _modelPedido;
+        bool _visibleNavegar;
         public GoogleMatrix ParametrosMatrix { get; set; }
 
 
@@ -66,6 +67,7 @@ namespace BullDriver.ViewModels
             TxtTarifa = "Ofresca su tarifa";
             VisibleOferta = false;
             VisibleEsperarOferta = false;
+            VisibleNavegar = false;
 
 
             Task.Run(PinActual);
@@ -74,6 +76,11 @@ namespace BullDriver.ViewModels
         }
         #endregion
         #region OBJETOS
+        public bool VisibleNavegar
+        {
+            get { return _visibleNavegar; }
+            set { SetValue(ref _visibleNavegar, value); }
+        }
         public bool VisibleEsperarOferta
         {
             get { return _visibleEsperarOferta; }
@@ -383,41 +390,40 @@ namespace BullDriver.ViewModels
 
 
         }
-        public void ListarOfertas()
+        public async void ListarOfertas()
         {
             var funcion = new DataOfertasConductores();
             var parametros = new Pedido();
             parametros.IdUser = "Modelo";
-            ListaOfertas = funcion.ListaOfertas(parametros);
+            ListaOfertas = await funcion.ListaOfertas(parametros);
         }
         private void ActivarTimer()
         {
             var tiempo = TimeSpan.FromSeconds(1);
             Device.StartTimer(tiempo, () =>
             {
-                if(ListaOfertas == null)
+                if(ListaOfertas != null)
                 {
-                    return true;
-                }
-                if (ListaOfertas.Count > 0)
-                {
-                    VisibleOferta = true;
-                    VisibleEsperarOferta = true;
-                    foreach (var item in ListaOfertas)
+                    if (ListaOfertas.Count > 0)
                     {
-                        var timeSpan = item.TimeSpan - TimeSpan.FromSeconds(1);
-                        item.TimeSpan = timeSpan;
-                        String[] cadena = timeSpan.ToString().Split(':');   //00:00:20 separa los valores de la hora en un array
-                        var time = cadena[2];                               //obtiene los segundos
-                        item.Progress = Convert.ToDouble(time) * 0.05;        //conbierte el valor de los segundos a rango de 0 a 1 para la lectura del pogressbar
+                        VisibleOferta = true;
+                        VisibleEsperarOferta = true;
+                        foreach (var item in ListaOfertas)
+                        {
+                            var timeSpan = item.TimeSpan - TimeSpan.FromSeconds(1);
+                            item.TimeSpan = timeSpan;
+                            String[] cadena = timeSpan.ToString().Split(':');   //00:00:20 separa los valores de la hora en un array
+                            var time = cadena[2];                               //obtiene los segundos
+                            item.Progress = Convert.ToDouble(time) * 0.05;        //conbierte el valor de los segundos a rango de 0 a 1 para la lectura del pogressbar
 
+                        }
                     }
-                }
-                else
-                {
-                    VisibleOferta = false;
-                    VisibleEsperarOferta = false;
-                }
+                    else
+                    {
+                        VisibleOferta = false;
+                        VisibleEsperarOferta = false;
+                    }
+                } 
                 return true;
             });
         }
@@ -429,6 +435,8 @@ namespace BullDriver.ViewModels
             _modelPedido.Tarifa = parametros.Tarifa;
             _modelPedido.IdChofer = parametros.IdConductor;
             await funcion.ConfirmarPedido(_modelPedido);
+            VisibleNavegar = true;
+            VisibleEsperarOferta = false;
         }
 
         #endregion

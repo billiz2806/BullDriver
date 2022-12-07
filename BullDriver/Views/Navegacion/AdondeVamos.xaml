@@ -196,5 +196,8 @@
         </Grid>
         <Navegacion:Ofertar IsVisible="{Binding VisibleOfertar }"/>
         <Navegacion:EsperarOferta IsVisible="{Binding VisibleEsperarOferta}"/>
+        <!--<Navegacion:Navegar IsVisible="{Binding VisibleNavegar}"/>-->
+        <Navegacion:Navegar IsVisible="true"/>
+
     </Grid>
 </ContentPage>
