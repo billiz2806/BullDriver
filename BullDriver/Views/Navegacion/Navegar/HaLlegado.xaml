@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Navegacion.Navegar.HaLlegado">
+    <Grid Grid.RowSpan="3">
+        <BoxView BackgroundColor="Black"
+                     Opacity="0.7"/>
+
+        <Grid VerticalOptions="EndAndExpand">
+            <BoxView CornerRadius="20"
+                     BackgroundColor="White"
+                     Margin="15"/>
+            <StackLayout>
+                <Label Text="Julian Valverde a llegado"/>
+                <Label Text="Toyota Tercerl a-99"/>
+                <Label Text="4:56"
+                           FontAttributes="Bold"
+                           FontSize="30"
+                           HorizontalTextAlignment="Center"/>
+                <Label Text="No llegue tarde"/>
+                <Button Text="Ok, en camino"/>
+                <Button Text="Llamar"/>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentView>

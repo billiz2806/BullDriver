@@ -45,6 +45,9 @@ namespace BullDriver.ViewModels
         bool _visibleEsperarOferta;
         Pedido _modelPedido;
         bool _visibleNavegar;
+        string IdPedido;
+        bool _visibleHeLlegado;
+        bool _visibleCalificar;
         public GoogleMatrix ParametrosMatrix { get; set; }
 
 
@@ -68,14 +71,27 @@ namespace BullDriver.ViewModels
             VisibleOferta = false;
             VisibleEsperarOferta = false;
             VisibleNavegar = false;
-
+            VisibleHeLlegado = false;
+            VisibleCalificar = false;
 
             Task.Run(PinActual);
             ListarOfertas();
             ActivarTimer();
         }
         #endregion
+
+
         #region OBJETOS
+        public bool VisibleCalificar
+        {
+            get { return _visibleCalificar; }
+            set { SetValue(ref _visibleCalificar, value); }
+        }
+        public bool VisibleHeLlegado
+        {
+            get { return _visibleHeLlegado; }
+            set { SetValue(ref _visibleHeLlegado, value); }
+        }
         public bool VisibleNavegar
         {
             get { return _visibleNavegar; }
@@ -366,6 +382,10 @@ namespace BullDriver.ViewModels
                         parametros.Tiempo = ParametrosMatrix.Rows[0].Elements[0].Duration.Text;
                         parametros.Tarifa = TxtTarifa;
                         parametros.Distancia = ParametrosMatrix.Rows[0].Elements[0].Distance.Value.ToString();
+                        parametros.Notificacion = "-";
+                        parametros.CalificarCliente = "-";
+                        parametros.CalificarConductor = "-";
+                        parametros.ComentarioConductor = "-";
 
                         await funcion.InsertPedidos(parametros);
                         VisibleOfertar = true;
@@ -420,12 +440,73 @@ namespace BullDriver.ViewModels
                     }
                     else
                     {
-                        VisibleOferta = false;
-                        VisibleEsperarOferta = false;
+                        ValidarPedidosPendiente();
+                        ValidarPedidosConfirmados();
+                        ValidarPedidosFinalizados();
                     }
                 } 
                 return true;
             });
+        }
+        private async void ValidarPedidosFinalizados()
+        {
+            var funcion = new DataPedidos();
+            var parametros = new Pedido();
+            parametros.IdUser = "Modelo";
+            var lista = await funcion.ListarPedidosFinalizados(parametros);
+            if (lista.Count > 0)
+            {
+                lista.ForEach(item =>
+                {
+                    IdPedido = item.IdPedido;
+                });
+                VisibleCalificar = true;
+            }
+            else
+            {
+                VisibleCalificar = false;
+            }
+        }
+        private async void ValidarPedidosPendiente()
+        {
+            var funcion = new DataPedidos();
+            var parametros = new Pedido();
+            parametros.IdUser = "Modelo";
+            var lista = await funcion.ListarPedidosPendientes(parametros);
+            if(lista.Count > 0)
+            {
+                VisibleEsperarOferta = true;
+                VisibleOferta = false;
+            }
+            else
+            {
+                VisibleEsperarOferta = false;
+                VisibleOferta = true;
+            }
+        }
+        private async void ValidarPedidosConfirmados()
+        {
+            var funcion = new DataPedidos();
+            var parametros = new Pedido();
+            parametros.IdUser = "Modelo";
+            var lista = await funcion.ListarPedidosConfirmados(parametros);
+            if (lista.Count > 0)
+            {
+                VisibleNavegar = true;
+                var notificacion = "-";
+
+                lista.ForEach(item =>
+                {
+                    IdPedido = item.IdPedido;
+                    notificacion = item.Notificacion;
+                });
+
+                if(notificacion == "he llegado")
+                {
+                    VisibleHeLlegado = true;
+                }
+            }
+
         }
         private async void ConfirmarPedido(OfertaConductor parametros)
         {

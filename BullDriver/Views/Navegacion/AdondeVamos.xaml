@@ -7,7 +7,8 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              xmlns:reutilizables="clr-namespace:BullDriver.Views.Reutilizables"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:Navegacion="clr-namespace:BullDriver.Views.Navegacion">
+             xmlns:Navegacion="clr-namespace:BullDriver.Views.Navegacion"
+             xmlns:vistas="clr-namespace:BullDriver.Views.Navegacion.Navegar">
 
     <Grid BackgroundColor="White">
         <Grid RowDefinitions="auto,*">
@@ -196,8 +197,7 @@
         </Grid>
         <Navegacion:Ofertar IsVisible="{Binding VisibleOfertar }"/>
         <Navegacion:EsperarOferta IsVisible="{Binding VisibleEsperarOferta}"/>
-        <!--<Navegacion:Navegar IsVisible="{Binding VisibleNavegar}"/>-->
-        <Navegacion:Navegar IsVisible="true"/>
-
+        <vistas:Navegar IsVisible="{Binding VisibleNavegar}"/>
+        <vistas:Calificar IsVisible="{Binding VisibleCalificar}"/>
     </Grid>
 </ContentPage>

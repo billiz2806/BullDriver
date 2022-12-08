@@ -17,6 +17,10 @@ namespace BullDriver.Models
         public string Tiempo { get; set; }
         public string Tarifa { get; set; }
         public string Distancia { get; set; }
+        public string Notificacion { get; set; }
+        public string CalificarCliente { get; set; }
+        public string CalificarConductor { get; set; }
+        public string ComentarioConductor { get; set; }
 
 
     }

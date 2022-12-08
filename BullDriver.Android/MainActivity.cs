@@ -9,6 +9,7 @@ using Android.Content;
 using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Auth.Api;
 using FFImageLoading.Forms.Platform;
+using Messier16.Forms.Android.Controls;
 
 namespace BullDriver.Droid
 {
@@ -26,6 +27,7 @@ namespace BullDriver.Droid
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             CachedImageRenderer.Init(true);
             Rg.Plugins.Popup.Popup.Init(this);
+            Messier16Controls.InitAll();
             LoadApplication(new App());
         }
 

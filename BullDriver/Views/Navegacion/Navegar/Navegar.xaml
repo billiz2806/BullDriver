@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Navegacion.Navegar.Navegar"
+             xmlns:map ="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             xmlns:vistas="clr-namespace:BullDriver.Views.Navegacion.Navegar">
+    <Grid RowDefinitions="auto,*,auto"
+          BackgroundColor="White">
+        <StackLayout>
+            <Button Text="Cancelar"
+                    TextTransform="None"
+                    FontAttributes="Bold"
+                    Margin="20"
+                    FontSize="20"
+                    Opacity="0.5"
+                    CornerRadius="15"
+                    HorizontalOptions="End"/>
+        </StackLayout>
+        <Frame Grid.Row="1"
+               Padding="0"
+               Margin="20,0">
+            <map:Map/>
+        </Frame>
+        <Grid Grid.Row="1"
+              VerticalOptions="Start"            
+              Margin="20,30">
+            <BoxView BackgroundColor="Black"
+                     CornerRadius="20"
+                     Opacity="0.60"
+                     Margin="20,0"/>
+            <Label Text="El chofer aeptu su solicitud"
+                   HorizontalOptions="Center"
+                   TextColor="Yellow"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   FontAttributes="Bold"
+                   Margin="25,35"
+                   FontSize="18"/>
+        </Grid>
+        <StackLayout Grid.Row="2">
+            <Label Text="Toyota Tercerl a-99"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   FontSize="22"
+                   Margin="0,15,0,0"
+                   TextColor="black"/>
+            <Frame HorizontalOptions="Center"
+                   BorderColor="Gray"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="15,10"
+                   Margin="0">
+                <Label Text="B2s-165"
+                       FontAttributes="Bold"
+                       FontSize="25"/>
+
+            </Frame>
+            <Frame BackgroundColor="#EFF1FE"
+                   HasShadow="False"
+                   CornerRadius="10"
+                   Margin="15">
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="0"
+                           HeightRequest="60"
+                           WidthRequest="60"
+                           VerticalOptions="Center"
+                           CornerRadius="30">
+                        <Image Source="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg"
+                               Aspect="AspectFill"/>
+                    </Frame>
+                    <StackLayout VerticalOptions="Center"
+                                 Margin="10,0,0,0">
+                        <Label Text="Julian Valverde"
+                               TextColor="Black"
+                               FontSize="18"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="https://i.ibb.co/SNdV8yW/favorito-1.png"
+                                   HeightRequest="20"/>
+                            <Label Text="4.9"
+                                   VerticalOptions="Center"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="0,0,60,0"
+                                 HeightRequest="30"
+                                 HorizontalOptions="EndAndExpand">
+                        <Image Source="https://icones.pro/wp-content/uploads/2021/02/icone-du-logo-whatsapp-bleu.png"/>
+                        <Image Source="https://icones.pro/wp-content/uploads/2021/03/icone-d-appel-et-d-appel-telephonique-bleue-1.png"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+        <vistas:HaLlegado Grid.RowSpan="3"
+                          IsVisible="{Binding VisibleHeLlegado}"/>
+    </Grid>
+</ContentView>

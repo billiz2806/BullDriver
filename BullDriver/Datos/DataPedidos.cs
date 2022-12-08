@@ -29,6 +29,10 @@ namespace BullDriver.Datos
                     Tiempo = parametros.Tiempo,
                     Tarifa = parametros.Tarifa,
                     Distancia = parametros.Distancia,
+                    Notificacion = parametros.Notificacion,
+                    CalificarCliente = parametros.CalificarCliente,
+                    CalificarConductor = parametros.CalificarConductor,
+                    ComentarioConductor = parametros.ComentarioConductor
                 });
             return true;
         }
@@ -44,7 +48,8 @@ namespace BullDriver.Datos
                 .Child("Pedidos")
                 .OnceAsync<Pedido>())
                 .Where(a => a.Object.IdUser == parametros.IdUser)
-                .Where(b => b.Object.Estado == "PENDIENTE")
+                .Where(b => b.Object.Estado != "FINALIZADO")
+                .Where(c => c.Object.IdUser != "-")
                 .FirstOrDefault();
                 if (data != null)
                 {
@@ -62,7 +67,8 @@ namespace BullDriver.Datos
                 .Child("Pedidos")
                 .OnceAsync<Pedido>())
                 .Where(a => a.Object.IdUser == parametros.IdUser)
-                .Where(b => b.Object.Estado == "PENDIENTE");
+                .Where(b => b.Object.Estado != "FINALIZADO")
+                .Where(c => c.Object.IdUser != "-");
 
             contador = data.Count();
             return contador;
@@ -91,6 +97,46 @@ namespace BullDriver.Datos
             var funcion = new DataOfertasConductores();
             await funcion.EliminarListaOfertas(parametros);
 
+        }
+        public async Task<List<Pedido>> ListarPedidosPendientes(Pedido parametros)
+        {
+            return (await Constantes.firebase
+                .Child("Pedidos")
+                .OnceAsync<Pedido>())
+                .Where(a => a.Object.IdUser == parametros.IdUser)
+                .Where(b => b.Object.Estado == "PENDIENTE")
+                .Select(item =>new Pedido
+                {
+                    IdPedido = item.Key,
+                    Notificacion = item.Object.Notificacion
+                }).ToList();
+        }
+        public async Task<List<Pedido>> ListarPedidosConfirmados(Pedido parametros)
+        {
+            return (await Constantes.firebase
+                .Child("Pedidos")
+                .OnceAsync<Pedido>())
+                .Where(a => a.Object.IdUser == parametros.IdUser)
+                .Where(b => b.Object.Estado == "CONFIRMADO")
+                .Select(item => new Pedido
+                {
+                    IdPedido = item.Key,
+                    Notificacion = item.Object.Notificacion
+                }).ToList();
+        }
+        public async Task<List<Pedido>> ListarPedidosFinalizados(Pedido parametros)
+        {
+            return (await Constantes.firebase
+                .Child("Pedidos")
+                .OnceAsync<Pedido>())
+                .Where(a => a.Object.IdUser == parametros.IdUser)
+                .Where(b => b.Object.Estado == "FINALIZADO")
+                .Where(b => b.Object.ComentarioConductor == "-")
+                .Select(item => new Pedido
+                {
+                    IdPedido = item.Key,
+                    Notificacion = item.Object.Notificacion
+                }).ToList();
         }
     }
 }
