@@ -48,6 +48,8 @@ namespace BullDriver.ViewModels
         string IdPedido;
         bool _visibleHeLlegado;
         bool _visibleCalificar;
+        string _textComentario;
+        string _rating;
         public GoogleMatrix ParametrosMatrix { get; set; }
 
 
@@ -82,6 +84,16 @@ namespace BullDriver.ViewModels
 
 
         #region OBJETOS
+        public string Rating
+        {
+            get { return _rating; }
+            set { SetValue(ref _rating, value); }
+        }
+        public string TextComentario
+        {
+            get { return _textComentario; }
+            set { SetValue(ref _textComentario, value); }
+        }
         public bool VisibleCalificar
         {
             get { return _visibleCalificar; }
@@ -448,6 +460,31 @@ namespace BullDriver.ViewModels
                 return true;
             });
         }
+        private async void Calificar()
+        {
+            if (!string.IsNullOrWhiteSpace(TextComentario))
+            {
+                if (!string.IsNullOrWhiteSpace(Rating))
+                {
+                    var funcion = new DataPedidos();
+                    var parametros = new Pedido();
+                    parametros.IdPedido = IdPedido;
+                    parametros.ComentarioConductor = TextComentario;
+                    parametros.CalificarConductor = Rating;
+                    await funcion.CalificarConductor(parametros);
+                    VisibleCalificar = false;
+                    VisibleNavegar = false;
+                }
+                else
+                {
+                    await DisplayAlert("Alerta", "Calificar al conductor", "Ok");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Alerta", "Ingrese un comentario", "Ok");
+            }
+        }
         private async void ValidarPedidosFinalizados()
         {
             var funcion = new DataPedidos();
@@ -522,6 +559,7 @@ namespace BullDriver.ViewModels
 
         #endregion
         #region COMANDOS
+        public ICommand CalificarCommand => new Command(Calificar);
         public ICommand ConfirmarPedidoCommand => new Command<OfertaConductor>(ConfirmarPedido);
         public ICommand SelectDireccionCommand => new Command<GooglePlaceAutoCompletePrediction>(async (p) => await SeleccionarDireccion(p));
         public ICommand BuscarDireccionesCommand => new Command<string>(async (b) => await BuscarDirecciones(b));

@@ -138,5 +138,24 @@ namespace BullDriver.Datos
                     Notificacion = item.Object.Notificacion
                 }).ToList();
         }
+        public async Task CalificarConductor(Pedido parametros)
+        {
+            //obtiene el pedido segun id
+            var data = (await Constantes.firebase
+                .Child("Pedidos")
+                .OnceAsync<Pedido>())
+                .Where(a => a.Key == parametros.IdPedido)
+                .FirstOrDefault();
+
+            //actualizamos datos
+            data.Object.ComentarioConductor = parametros.ComentarioConductor;
+            data.Object.CalificarConductor = parametros.CalificarConductor;
+
+            //enviamos datos actualizados a la api DB
+            await Constantes.firebase
+                .Child("Pedidos")
+                .Child(data.Key)
+                .PutAsync(data.Object);
+        }
     }
 }

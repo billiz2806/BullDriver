@@ -33,7 +33,8 @@
                                 HorizontalOptions="Center"
                                 MaxRating="5"
                                 HeightRequest="40"
-                                WidthRequest="350"/>
+                                WidthRequest="350"
+                                Rating="{Binding Rating,Mode=TwoWay}"/>
             <StackLayout VerticalOptions="EndAndExpand" Spacing="20">
                 <StackLayout Orientation="Horizontal">
                     <Image Source="https://icones.pro/wp-content/uploads/2022/01/icone-de-commentaires-jaune.png"
@@ -41,18 +42,19 @@
                     <Entry Placeholder="¿Como te fue?"
                            HorizontalOptions="FillAndExpand"
                         FontSize="20"
-                        Text="{Binding textComentarioCalificacion}"/>
+                        Text="{Binding TextComentario}"/>
                 </StackLayout>
                 <Button Text="Enviar"
                         HorizontalOptions="Center"
                         CornerRadius="15"
                         TextTransform="None"
                         FontAttributes="Bold"
-                        TextColor="White"
+                        TextColor="Black"
                         WidthRequest="350"
-                        BackgroundColor="Blue"
+                        BackgroundColor="Yellow"
+                        Command="{Binding CalificarCommand}"
                         />
-                <Button Text="Enviar"
+                <!--<Button Text="Enviar"
                         HorizontalOptions="Center"
                         CornerRadius="15"
                         TextTransform="None"
@@ -60,7 +62,7 @@
                         WidthRequest="350"
                         TextColor="Black"
                         BackgroundColor="LightGray"
-                        />
+                        />-->
             </StackLayout>
         </StackLayout>
     </Grid>
