@@ -2,9 +2,11 @@
 using BullDriver.Models;
 using BullDriver.Services;
 using BullDriver.Views.Navegacion;
+using BullDriver.Views.Registro;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +52,7 @@ namespace BullDriver.ViewModels
         bool _visibleCalificar;
         string _textComentario;
         string _rating;
+        int _estado = 0;
         public GoogleMatrix ParametrosMatrix { get; set; }
 
 
@@ -76,9 +79,9 @@ namespace BullDriver.ViewModels
             VisibleHeLlegado = false;
             VisibleCalificar = false;
 
-            Task.Run(PinActual);
-            ListarOfertas();
-            ActivarTimer();
+            //Task.Run(PinActual);
+            //ListarOfertas();
+            //ActivarTimer();
         }
         #endregion
 
@@ -201,8 +204,36 @@ namespace BullDriver.ViewModels
         }
         #endregion
 
-
         #region PROCESOS
+        public int Autenticacion()
+        {
+            try
+            {
+                var ruta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "auth.txt");
+                _estado = Convert.ToInt32(File.ReadAllText(ruta));
+                return _estado;
+            }
+            catch (Exception)
+            {
+
+                return _estado;
+            }
+        }
+
+        public void ValidarAuth()
+        {
+            Autenticacion();
+            if (_estado == 0) /* revertir a: _estado == 0 */
+            {
+                Application.Current.MainPage = new NavigationPage(new Empezar());
+            }
+            else
+            {
+                Task.Run(PinActual);
+                ListarOfertas();
+                ActivarTimer();
+            }
+        }
         private void AgregarTarifa()
         {
             TxtTarifa = TxtTarifaEmergente;
@@ -558,7 +589,9 @@ namespace BullDriver.ViewModels
         }
 
         #endregion
+
         #region COMANDOS
+        public ICommand ValidarAuthCommand => new Command(ValidarAuth);
         public ICommand CalificarCommand => new Command(Calificar);
         public ICommand ConfirmarPedidoCommand => new Command<OfertaConductor>(ConfirmarPedido);
         public ICommand SelectDireccionCommand => new Command<GooglePlaceAutoCompletePrediction>(async (p) => await SeleccionarDireccion(p));

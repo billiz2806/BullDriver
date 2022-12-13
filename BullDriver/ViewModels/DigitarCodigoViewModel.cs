@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using BullDriver.Views.Menu;
 using System.IO;
+using BullDriver.Views.Navegacion;
 
 namespace BullDriver.ViewModels
 {
@@ -14,15 +15,22 @@ namespace BullDriver.ViewModels
         #region VARIABLES
         string _txtCodigo;
         string codigoRecibido;
+        string _telefono;
         #endregion
         #region CONSTRUCTOR
-        public DigitarCodigoViewModel(INavigation navigation, string codigo)
+        public DigitarCodigoViewModel(INavigation navigation, string codigo, string telefono)
         {
             Navigation = navigation;
             codigoRecibido = codigo;
+            Telefono = telefono;
         }
         #endregion
         #region OBJETOS
+        public string Telefono
+        {
+            get { return _telefono; }
+            set { SetValue(ref _telefono, value); }
+        }
         public string TxtCodigo
         {
             get { return _txtCodigo; }
@@ -35,7 +43,7 @@ namespace BullDriver.ViewModels
             if (TxtCodigo == codigoRecibido)
             {
                 CrearArchivo();
-                await Navigation.PushAsync(new MenuPrincipal());
+                await Navigation.PushAsync(new AdondeVamos());
             }
             else
             {
@@ -71,8 +79,14 @@ namespace BullDriver.ViewModels
                 throw;
             }
         }
+        private async void Volver()
+        {
+            await Navigation.PopAsync();
+        }
         #endregion
         #region COMANDOS
+        public ICommand VolverCommand => new Command(Volver);
+
         public ICommand ValidadCodigoCommand => new Command(ValidadCodigo);
         #endregion
     }

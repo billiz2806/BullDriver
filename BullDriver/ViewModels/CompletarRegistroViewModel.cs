@@ -91,7 +91,7 @@ namespace BullDriver.ViewModels
                 var message = MessageResource.Create(messageOptions);
                 Console.WriteLine(message.Body);
 
-                await Navigation.PushAsync(new DigitarCodigo(randomSMS));
+                await Navigation.PushAsync(new DigitarCodigo(randomSMS, TxtNumero));
             }
             catch (Exception ex)
             {
@@ -150,8 +150,13 @@ namespace BullDriver.ViewModels
                 }
             }
         }
+        private async void Volver()
+        {
+            await Navigation.PopAsync();
+        }
         #endregion
         #region COMANDOS
+        public ICommand VolverCommand => new Command(Volver);
         public ICommand BuscarPaisCommand => new Command<string>(BuscarPais);
         public ICommand CancelarCommand => new Command(Cancelar);
         public ICommand ConfirmarPaisCommand => new Command(ConfirmarPais);

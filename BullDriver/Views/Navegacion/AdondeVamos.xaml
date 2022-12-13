@@ -9,195 +9,194 @@
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              xmlns:Navegacion="clr-namespace:BullDriver.Views.Navegacion"
              xmlns:vistas="clr-namespace:BullDriver.Views.Navegacion.Navegar">
-
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Appearing"
+                                        Command="{Binding ValidarAuthCommand}"/>
+    </ContentPage.Behaviors>
     <Grid BackgroundColor="White">
-        <Grid RowDefinitions="auto,*">
-            <shadow:Shadows>
-                <StackLayout Spacing="10" Padding="20,10" BackgroundColor="White">
-                    <StackLayout Orientation="Horizontal">
-                        <Image Source="https://i.ibb.co/k5gTQFK/flecha-izquierda-2.png"
-                           HeightRequest="20"
-                           HorizontalOptions="Start"/>
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="CenterAndExpand">
-                            <Frame CornerRadius="20"
-                                   VerticalOptions="Center"
-                                   Padding="0"
-                                   HasShadow="False">
-                                <Frame.Background>
-                                    <RadialGradientBrush>
-                                        <GradientStopCollection>
-                                            <GradientStop Color="White"
-                                                          Offset="0.1"/>
-                                            <GradientStop Color="White"
-                                                          Offset="0.1"/>
-                                            <GradientStop Color="#E9E9E9"
-                                                          Offset="0.1"/>
-                                            <GradientStop Color="LightGray"
-                                                          Offset="1.0"/>
-                                        </GradientStopCollection>
-                                    </RadialGradientBrush>
-                                </Frame.Background>
-                                <Image Source="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                                       HeightRequest="17"
-                                       Margin="4"/>
+        <Grid Margin="0,40,0,40">
+            <Grid RowDefinitions="auto,*">
+                <shadow:Shadows>
+                    <StackLayout Spacing="10" Padding="20,10" BackgroundColor="White">
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="https://i.ibb.co/k5gTQFK/flecha-izquierda-2.png"
+                               HeightRequest="20"
+                               HorizontalOptions="Start"/>
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="CenterAndExpand">
+                                <Frame CornerRadius="20"
+                                       VerticalOptions="Center"
+                                       Padding="0"
+                                       HasShadow="False">
+                                    <Frame.Background>
+                                        <RadialGradientBrush>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="White"
+                                                              Offset="0.1"/>
+                                                <GradientStop Color="White"
+                                                              Offset="0.1"/>
+                                                <GradientStop Color="#E9E9E9"
+                                                              Offset="0.1"/>
+                                                <GradientStop Color="LightGray"
+                                                              Offset="1.0"/>
+                                            </GradientStopCollection>
+                                        </RadialGradientBrush>
+                                    </Frame.Background>
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                           HeightRequest="17"
+                                           Margin="4"/>
 
-                            </Frame>
-                            <Label Text="Para Mi"
-                                   VerticalOptions="Center"
-                                   TextColor="Black"/>
-                            <Image Source="https://i.ibb.co/64647fr/flecha-hacia-abajo.png"
-                                   HeightRequest="10"/>
+                                </Frame>
+                                <Label Text="Para Mi"
+                                       VerticalOptions="Center"
+                                       TextColor="Black"/>
+                                <Image Source="https://i.ibb.co/64647fr/flecha-hacia-abajo.png"
+                                       HeightRequest="10"/>
 
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <StackLayout VerticalOptions="Center"
-                                         Margin="0,0,12,0">
-                            <BoxView BackgroundColor="Black"
-                                         HeightRequest="10"
-                                         WidthRequest="10"
-                                         CornerRadius="10"
-                                         HorizontalOptions="Center"/>
-                            <Line HeightRequest="50"
-                                  BackgroundColor="LightGray"
-                                  WidthRequest="2"
-                                  HorizontalOptions="Center"
-                                  Margin="0,-5"/>
-                            <BoxView BackgroundColor="LightGray"
-                                         HeightRequest="10"
-                                         WidthRequest="10"
-                                         HorizontalOptions="Center"/>
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout VerticalOptions="Center"
+                                             Margin="0,0,12,0">
+                                <BoxView BackgroundColor="Black"
+                                             HeightRequest="10"
+                                             WidthRequest="10"
+                                             CornerRadius="10"
+                                             HorizontalOptions="Center"/>
+                                <Line HeightRequest="50"
+                                      BackgroundColor="LightGray"
+                                      WidthRequest="2"
+                                      HorizontalOptions="Center"
+                                      Margin="0,-5"/>
+                                <BoxView BackgroundColor="LightGray"
+                                             HeightRequest="10"
+                                             WidthRequest="10"
+                                             HorizontalOptions="Center"/>
 
-                        </StackLayout>
-                        <StackLayout  HorizontalOptions="FillAndExpand" >
-                            <StackLayout>
-                                <Frame BackgroundColor="#F9F9F9"
-                                   HasShadow="False"
-                                   Padding="2,1"
-                                   CornerRadius="5">
-                                    <StackLayout>
-                                        <SearchBar FontSize="Subtitle"
-                                           TextColor="#373660"
-                                           TranslationX="-12"
-                                           x:Name="txtOrigen"
-                                           IsEnabled="{Binding EnableTxtOrigen}"
-                                           IsVisible="{Binding EnableTxtOrigen}"
-                                           Text="{Binding TxtOrigen, Mode=TwoWay}"
-                                           >
-                                            <SearchBar.Behaviors>
-                                                <toolkit:EventToCommandBehavior
-                                                EventName="TextChanged"
-                                                Command="{Binding BuscarDireccionesCommand}"
-                                                CommandParameter="{Binding Text,Source={x:Reference txtOrigen}}"/>
-                                            </SearchBar.Behaviors>
-                                        </SearchBar>
-                                        <Label Margin="20,13"
-                                               FontSize="14"
-                                               TextColor="#8483A7"
+                            </StackLayout>
+                            <StackLayout  HorizontalOptions="FillAndExpand" >
+                                <StackLayout>
+                                    <Frame BackgroundColor="#F9F9F9"
+                                       HasShadow="False"
+                                       Padding="2,1"
+                                       CornerRadius="5">
+                                        <StackLayout>
+                                            <SearchBar FontSize="Subtitle"
+                                               TextColor="#373660"
+                                               TranslationX="-12"
+                                               x:Name="txtOrigen"
+                                               IsEnabled="{Binding EnableTxtOrigen}"
+                                               IsVisible="{Binding EnableTxtOrigen}"
                                                Text="{Binding TxtOrigen, Mode=TwoWay}"
-                                               IsVisible="{Binding VisibleTxtOrigen}"/>
-                                    </StackLayout>
+                                               >
+                                                <SearchBar.Behaviors>
+                                                    <toolkit:EventToCommandBehavior
+                                                    EventName="TextChanged"
+                                                    Command="{Binding BuscarDireccionesCommand}"
+                                                    CommandParameter="{Binding Text,Source={x:Reference txtOrigen}}"/>
+                                                </SearchBar.Behaviors>
+                                            </SearchBar>
+                                            <Label Margin="20,13"
+                                                   FontSize="14"
+                                                   TextColor="#8483A7"
+                                                   Text="{Binding TxtOrigen, Mode=TwoWay}"
+                                                   IsVisible="{Binding VisibleTxtOrigen}"/>
+                                        </StackLayout>
                                     
-                                </Frame>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectOrigenCommand}"/>
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-                            <StackLayout>
-                                <Frame 
-                                   BackgroundColor="#F9F9F9"
-                                   HasShadow="False"
-                                   Padding="2,1"
-                                   CornerRadius="5" >
-                                    <StackLayout>
-                                        <SearchBar FontSize="Subtitle"
-                                           TextColor="#373660"
-                                           TranslationX="-12"
-                                           Placeholder="¿A donde Vamos?"
-                                           x:Name="txtDestino"
-                                           IsEnabled="{Binding EnableTxtDestino}"
-                                           IsVisible="{Binding EnableTxtDestino}"
-                                           Text="{Binding TxtDestino, Mode=TwoWay}">
-                                            <SearchBar.Behaviors>
-                                                <toolkit:EventToCommandBehavior
-                                                EventName="TextChanged"
-                                                Command="{Binding BuscarDireccionesCommand}"
-                                                CommandParameter="{Binding Text,Source={x:Reference txtDestino}}"/>
-                                            </SearchBar.Behaviors>
-                                        </SearchBar>
-                                        <Label Margin="20,13"
-                                               FontSize="14"
-                                               TextColor="#8483A7"
-                                               Text="{Binding TxtDestino, Mode=TwoWay}"
-                                               IsVisible="{Binding VisibleTxtDestino}"/>
-                                    </StackLayout>
-                                </Frame>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectDestinoCommand}"/>
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
+                                    </Frame>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectOrigenCommand}"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                                <StackLayout>
+                                    <Frame 
+                                       BackgroundColor="#F9F9F9"
+                                       HasShadow="False"
+                                       Padding="2,1"
+                                       CornerRadius="5" >
+                                        <StackLayout>
+                                            <SearchBar FontSize="Subtitle"
+                                               TextColor="#373660"
+                                               TranslationX="-12"
+                                               Placeholder="¿A donde Vamos?"
+                                               x:Name="txtDestino"
+                                               IsEnabled="{Binding EnableTxtDestino}"
+                                               IsVisible="{Binding EnableTxtDestino}"
+                                               Text="{Binding TxtDestino, Mode=TwoWay}">
+                                                <SearchBar.Behaviors>
+                                                    <toolkit:EventToCommandBehavior
+                                                    EventName="TextChanged"
+                                                    Command="{Binding BuscarDireccionesCommand}"
+                                                    CommandParameter="{Binding Text,Source={x:Reference txtDestino}}"/>
+                                                </SearchBar.Behaviors>
+                                            </SearchBar>
+                                            <Label Margin="20,13"
+                                                   FontSize="14"
+                                                   TextColor="#8483A7"
+                                                   Text="{Binding TxtDestino, Mode=TwoWay}"
+                                                   IsVisible="{Binding VisibleTxtDestino}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectDestinoCommand}"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
 
 
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="S/."
+                                   FontSize="Medium"
+                                   VerticalOptions="Center"
+                                   TextColor="#373660"/>
+                            <Button HorizontalOptions="FillAndExpand"  
+                                    BackgroundColor="#F9F9F9"
+                                    CornerRadius="5"
+                                    FontSize="18"
+                                    TextTransform="None"
+                                    TextColor="#373660"
+                                    Text="{Binding TxtTarifa}"
+                                    Command="{Binding MostrarOfertarCommand}"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding MostrarOfertarCommand}"/>
+                            </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="S/."
-                               FontSize="Medium"
-                               VerticalOptions="Center"
-                               TextColor="#373660"/>
-                        <Button HorizontalOptions="FillAndExpand"  
-                                BackgroundColor="#F9F9F9"
-                                CornerRadius="5"
-                                FontSize="18"
-                                TextTransform="None"
-                                TextColor="#373660"
-                                Text="{Binding TxtTarifa}"
-                                Command="{Binding MostrarOfertarCommand}"/>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding MostrarOfertarCommand}"/>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
-                    <!--<Button Text="Solicitar un auto"
-                            CornerRadius="10"
-                            TextColor="White"
-                            FontSize="18"
-                            FontAttributes="Bold"
-                            BackgroundColor="#3f51b5"
-                            Command="{Binding InsertarPedidoCommand}"/>-->
-                </StackLayout>
-            </shadow:Shadows>
-            <Frame Grid.Row="1"
-                   Padding="0"
-                   Margin="20,10"
-                   HasShadow="False"
-                   CornerRadius="10">
-                <maps:Map x:Name="Mapa"/>
-            </Frame>
-            <Image  Source="alfiler.png" Grid.Row="1"
-                   VerticalOptions="Center" HorizontalOptions="Center"
-                   WidthRequest="50"
-                   HeightRequest="50"/>
-            <Button Text="Solicitar un auto"
-                    Grid.Row="1"
-                    BackgroundColor="#3f51b5"
-                    VerticalOptions="End"
-                    TextColor="White"
-                    HorizontalOptions="Center"
-                    WidthRequest="300"
-                    CornerRadius="20"
-                    Margin="30"
-                    FontAttributes="Bold"
-                    HeightRequest="40"
-                    Command="{Binding InsertarPedidoCommand}"/>
-            <reutilizables:ListaDirecciones Grid.Row="1" IsVisible="{Binding VisibleListaDirecciones }"/>
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding FijarEnMapaCommand}"/>
-            </Grid.GestureRecognizers>
+                </shadow:Shadows>
+                <Frame Grid.Row="1"
+                       Padding="0"
+                       Margin="20,10"
+                       HasShadow="False"
+                       CornerRadius="10">
+                    <maps:Map x:Name="Mapa"/>
+                </Frame>
+                <Image  Source="alfiler.png" Grid.Row="1"
+                       VerticalOptions="Center" HorizontalOptions="Center"
+                       WidthRequest="50"
+                       HeightRequest="50"/>
+                <Button Text="Solicitar un auto"
+                        Grid.Row="1"
+                        TextTransform="None"
+                        FontSize="20"
+                        BackgroundColor="#3f51b5"
+                        VerticalOptions="End"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        WidthRequest="300"
+                        CornerRadius="20"
+                        Margin="30"
+                        FontAttributes="Bold"
+                        Command="{Binding InsertarPedidoCommand}"/>
+                <reutilizables:ListaDirecciones Grid.Row="1" IsVisible="{Binding VisibleListaDirecciones }"/>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FijarEnMapaCommand}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+            <Navegacion:Ofertar IsVisible="{Binding VisibleOfertar }"/>
+            <Navegacion:EsperarOferta IsVisible="{Binding VisibleEsperarOferta}"/>
+            <vistas:Navegar IsVisible="{Binding VisibleNavegar}"/>
+            <vistas:Calificar IsVisible="{Binding VisibleCalificar}"/>
         </Grid>
-        <Navegacion:Ofertar IsVisible="{Binding VisibleOfertar }"/>
-        <Navegacion:EsperarOferta IsVisible="{Binding VisibleEsperarOferta}"/>
-        <vistas:Navegar IsVisible="{Binding VisibleNavegar}"/>
-        <vistas:Calificar IsVisible="{Binding VisibleCalificar}"/>
     </Grid>
 </ContentPage>

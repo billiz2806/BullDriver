@@ -13,10 +13,10 @@ namespace BullDriver.Views.Registro
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DigitarCodigo : ContentPage
     {
-        public DigitarCodigo(String codigo)
+        public DigitarCodigo(String codigo, String telefono)
         {
             InitializeComponent();
-            BindingContext = new DigitarCodigoViewModel(Navigation, codigo);
+            BindingContext = new DigitarCodigoViewModel(Navigation, codigo, telefono);
         }
     }
 }

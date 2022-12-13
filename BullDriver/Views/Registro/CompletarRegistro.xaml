@@ -3,15 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BullDriver.Views.Registro.CompletarRegistro"
              Visual="Material"
+             NavigationPage.HasNavigationBar="False"
              xmlns:vm="clr-namespace:BullDriver.ViewModels"
              x:DataType="vm:CompletarRegistroViewModel"
              xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
     <StackLayout BackgroundColor="White"
                  Spacing="20"
-                 Padding="15">
+                 Padding="25,60">
         <Label Text="Confirma tu informacion"
-                TextColor="#373660"
-                 FontSize="Medium" />
+               TextColor="#373660"
+               FontSize="30"
+               FontAttributes="Bold"
+               Margin="0,0,0,20"/>
         <Grid ColumnDefinitions="*,*">
             <Frame BackgroundColor="#EEEEEE"
                    Padding="5"
@@ -78,20 +81,24 @@
                    Padding="20">
                 <Image Source="https://i.ibb.co/k5gTQFK/flecha-izquierda-2.png"
                        HeightRequest="20"/>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding VolverCommand}"/>
+                </Frame.GestureRecognizers>
             </Frame>
             <Frame HorizontalOptions="EndAndExpand"
                    Margin="0,20"
-                   BackgroundColor="#373660"
+                   BackgroundColor="#3F51B5"
                    CornerRadius="30"
                    Padding="10">
                 <StackLayout Orientation="Horizontal">
                     <Label 
-                    Text="Siguiente"
-                    TextColor="White"
-                    TextTransform="None"
-                    FontAttributes="Bold"
-                    VerticalOptions="Center"
-                    Margin="20,0,10,0"/>
+                        FontSize="20"
+                        Text="Siguiente"
+                        TextColor="White"
+                        TextTransform="None"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        Margin="20,0,10,0"/>
                     <Image Source="https://i.ibb.co/wzXJYGs/flechas-a-la-derecha.png"
                        HeightRequest="30"
                        HorizontalOptions="End"

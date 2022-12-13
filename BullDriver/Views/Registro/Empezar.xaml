@@ -6,16 +6,27 @@
              xmlns:vm="clr-namespace:BullDriver.ViewModels"
              x:DataType="vm:EmpezarViewModel">
     <Grid BackgroundColor="#fff">
+        <Image 
+               Source="https://us.123rf.com/450wm/dolgachov/dolgachov1911/dolgachov191103018/dolgachov191103018.jpg?ver=6"
+               Aspect="AspectFill"/>
+        <BoxView>
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="2,0">
+                    <GradientStop Color="Transparent"
+                                      Offset="0.3"/>
+                    <GradientStop Color="White"
+                                      Offset="0.8"/>
+                    <GradientStop Color="White"
+                                      Offset="0.1"/>
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
         <StackLayout>
-            <StackLayout VerticalOptions="CenterAndExpand"
+            <StackLayout Margin="0,300,0,0"
+                VerticalOptions="EndAndExpand"
                          Spacing="60">
-                <Label 
-                Text="BullDriver"
-                TextColor="#373660"
-                HorizontalOptions="Center"
-                FontSize="40"
-                FontAttributes="Bold"/>
-                <Image Source="https://i.ibb.co/h1WBNdz/img-intro.png"
+                
+                <Image Source="https://taxillamadafacil.com/wp-content/uploads/2021/06/App.png"
                    HeightRequest="200"/>
                 <Label 
                 Text="Viaja con seguridad"
@@ -26,14 +37,15 @@
             </StackLayout>
 
             <Grid VerticalOptions="EndAndExpand"
-                  Margin="20">
+                  Margin="40,0,40,80">
                 <Button 
                     Text="Empezar"
-                    BackgroundColor="#373660"
+                    FontSize="20"
+                    BackgroundColor="#3F51B5"
                     TextColor="White"
                     TextTransform="None"
                     FontAttributes="Bold"
-                    CornerRadius="10"
+                    CornerRadius="25"
                     Command="{Binding IrCrearCuentaComand }"
                     />
                 <Image Source="https://i.ibb.co/wzXJYGs/flechas-a-la-derecha.png"

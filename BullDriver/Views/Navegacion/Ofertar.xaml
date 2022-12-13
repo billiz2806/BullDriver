@@ -12,16 +12,16 @@
                 <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center">
                     <Label Text="S/"
-                               FontSize="40"
+                           FontSize="40"
                            TextColor="#373660"
-                               VerticalOptions="Center"/>
-                    <Entry Placeholder="0.00"
+                           VerticalOptions="Center"/>
+                    <Entry 
                            FontSize="40"
                            HorizontalTextAlignment="Center"
                            PlaceholderColor="LightGray"
                            TextColor="#373660"
-                               Keyboard="Numeric"
-                               WidthRequest="150"
+                           Keyboard="Numeric"
+                           WidthRequest="150"
                            Text="{Binding TxtTarifaEmergente}"/>
                 </StackLayout>
                 <Label Text="Ofresca una tarifa razonable para que su solicitud sea mas atractiva"
@@ -43,7 +43,7 @@
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Cerrar"
                                 TextTransform="None"
-                                BackgroundColor="#3f51b5"
+                                BackgroundColor="#8483A7"
                                 FontSize="Medium"
                                 FontAttributes="Bold"
                                 HorizontalOptions="StartAndExpand"
@@ -52,7 +52,7 @@
                                 Command="{Binding OcultarOfertarCommand}"/>
                     <Button Text="Hecho"
                                 TextTransform="None"
-                                BackgroundColor="#FCC833"
+                                BackgroundColor="#3F51B5"
                                 CornerRadius="15"
                                 FontSize="Medium"
                                 FontAttributes="Bold"

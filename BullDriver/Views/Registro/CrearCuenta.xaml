@@ -3,26 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BullDriver.Views.Registro.CrearCuenta"
              xmlns:vm="clr-namespace:BullDriver.ViewModels"
+             NavigationPage.HasNavigationBar="False"
              x:DataType="vm:CrearCuentaViewModel">
-    <StackLayout Padding="20"
-                 Spacing="30"
-                 BackgroundColor="#FFF">
-        <Label Text="Selecciona tu cuenta google"
-               FontSize="Medium"
+    <StackLayout Padding="25"
+                 Spacing="40"
+                 BackgroundColor="#FFF" >
+        <StackLayout Margin="0,30,0,0">
+            
+        </StackLayout>
+        <Label Text="Crearemos tu cuenta"
+               FontSize="35"
                TextColor="#373660"
                FontAttributes="Bold"/>
         <Label Text="Si continuas es posible que recibas un SMS para verif‌icar la cuenta.Se pueden aplicar los precios de mensajes y datos."
-               TextColor="#373660"/>
+               TextColor="#373660"
+               FontSize="18"/>
         <Frame HasShadow="False"
                BackgroundColor="#EEEEEE"
-               CornerRadius="10"
+               CornerRadius="30"
                Padding="15">
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" Padding="20,0,20,0">
                 <Image Source="https://i.ibb.co/VtScjWv/google.png" HeightRequest="35"/>
                 <Label Text="Continuar con Google"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Center"
                        FontAttributes="Bold"
+                       FontSize="20"
                         TextColor="#373660" />
             </StackLayout>
             <Frame.GestureRecognizers>
