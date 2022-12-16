@@ -10,13 +10,14 @@ using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Auth.Api;
 using FFImageLoading.Forms.Platform;
 using Messier16.Forms.Android.Controls;
+using Plugin.Media;
 
 namespace BullDriver.Droid
 {
-    [Activity(Label = "BullDriver", Icon = "@mipmap/icon", Theme = "@style/nuevotema", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    [Activity(Label = "BullDriver", Icon = "@mipmap/iconBullDriver", Theme = "@style/nuevotema", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
@@ -28,6 +29,7 @@ namespace BullDriver.Droid
             CachedImageRenderer.Init(true);
             Rg.Plugins.Popup.Popup.Init(this);
             Messier16Controls.InitAll();
+            await CrossMedia.Current.Initialize();
             LoadApplication(new App());
         }
 

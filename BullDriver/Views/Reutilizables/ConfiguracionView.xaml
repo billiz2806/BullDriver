@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Reutilizables.ConfiguracionView">
+    <Grid>
+        <BoxView BackgroundColor="Black"
+                 Opacity="0.5"/>
+        <Grid ColumnDefinitions="3*,*">
+            <StackLayout BackgroundColor="White"
+                         Padding="0,30,0,0">
+                <Frame Padding="0"
+                       Margin="0,10,10,0"
+                       HorizontalOptions="EndAndExpand"
+                       HasShadow="False"
+                       HeightRequest="35">
+                    <Image Source="https://icon-library.com/images/icon-exit/icon-exit-3.jpg"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OcultarConfiguracionCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="-15"
+                           BackgroundColor="#3f51b5"
+                           HorizontalOptions="CenterAndExpand"
+                           CornerRadius="20"
+                           HeightRequest="120"
+                           WidthRequest="120">
+                        <Image Source="iconBullDriver.png"
+                               Aspect="AspectFill"/>
+                    </Frame>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             Margin="15,25,45,10">
+                    <Frame Padding="0"
+                           HorizontalOptions="StartAndExpand"
+                           CornerRadius="25"
+                           HeightRequest="50"
+                           WidthRequest="50">
+                        <Image Source="{Binding FotoUsuario}"
+                               Aspect="AspectFill"/>
+                    </Frame>
+                    <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="EndAndExpand">
+                        <Label Text="{Binding NombreUsuario}"
+                           FontSize="15"
+                           HorizontalOptions="Center"
+                           FontAttributes="Bold"/>
+                        <Label Text="Nuevo Ususario"
+                           HorizontalOptions="Center"
+                           FontSize="13" />
+                    </StackLayout>
+                </StackLayout>
+
+                <BoxView BackgroundColor="LightGray"
+                         Opacity="0.5"
+                         HeightRequest="1"/>
+                
+                <StackLayout Orientation="Horizontal"
+                             HeightRequest="70"
+                             Padding="15,0,0,0">
+                    <Image Source="https://i.ibb.co/ZhCLFJR/asd.png"
+                           HeightRequest="30"
+                           Margin="0,0,10,0"/>
+                    <Label Text="Perfil"
+                           VerticalOptions="Center"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding IrConfigurarPerfilUsuarioCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HeightRequest="70"
+                             Padding="15,0,0,0">
+                    <Image Source="https://i.ibb.co/ZhCLFJR/asd.png"
+                           HeightRequest="30"
+                           Margin="0,0,10,0"/>
+                    <Label Text="Mi cuenta"
+                           VerticalOptions="Center"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HeightRequest="70"
+                             Padding="15,0,0,0">
+                    <Image Source="https://i.ibb.co/ZhCLFJR/asd.png"
+                           HeightRequest="30"
+                           Margin="0,0,10,0"/>
+                    <Label Text="Mis Viajes"
+                           VerticalOptions="Center"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HeightRequest="70"
+                             Padding="15,0,0,0">
+                    <Image Source="https://i.ibb.co/ZhCLFJR/asd.png"
+                           HeightRequest="30"
+                           Margin="0,0,10,0"/>
+                    <Label Text="Configuraciones"
+                           VerticalOptions="Center"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HeightRequest="70"
+                             Padding="15,0,0,0">
+                    <Image Source="https://i.ibb.co/ZhCLFJR/asd.png"
+                           HeightRequest="30"
+                           Margin="0,0,10,0"/>
+                    <Label Text="Ayuda"
+                           VerticalOptions="Center"
+                           FontSize="20"
+                           FontAttributes="Bold"/>
+                </StackLayout>
+
+                <StackLayout VerticalOptions="EndAndExpand"
+                             Margin="0,0,0,40">
+                    <BoxView BackgroundColor="LightGray"
+                         Opacity="0.5"
+                         HeightRequest="1"/>
+                    <Button Text="Modo conductor"
+                            TextTransform="None"
+                            CornerRadius="25"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Margin="20">
+                        <Button.Background>
+                            <LinearGradientBrush>
+                                <GradientStopCollection>
+                                    <GradientStop Color="#3f51b5" Offset="0.5"/>
+                                    <GradientStop Color="#3E58EA" Offset="2.0"/>
+                                </GradientStopCollection>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </StackLayout>
+            </StackLayout>
+            <BoxView Grid.Column="1">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OcultarConfiguracionCommand}"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+        </Grid>
+    </Grid>
+</ContentView>

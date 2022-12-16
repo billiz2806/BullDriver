@@ -1,4 +1,5 @@
-﻿using BullDriver.ViewModels;
+﻿using BullDriver.Models;
+using BullDriver.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace BullDriver.Views.Registro
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DigitarCodigo : ContentPage
     {
-        public DigitarCodigo(String codigo, String telefono)
+        public DigitarCodigo(String codigo, String telefono, GoogleUser googleUser)
         {
             InitializeComponent();
-            BindingContext = new DigitarCodigoViewModel(Navigation, codigo, telefono);
+            BindingContext = new DigitarCodigoViewModel(Navigation, codigo, telefono, googleUser);
         }
     }
 }

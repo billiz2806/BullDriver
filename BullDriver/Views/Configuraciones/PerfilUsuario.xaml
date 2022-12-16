@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Configuraciones.PerfilUsuario"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White"
+             Visual="Material">
+    <ScrollView>
+        <StackLayout Margin="10,50,10,30">
+            <StackLayout Orientation="Horizontal">
+                <Image Source="https://assets.stickpng.com/images/585e4695cb11b227491c3373.png"
+                       HeightRequest="30"
+                       Margin="0,0,20,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding VolverCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="Configuración de perfil"
+                       FontAttributes="Bold"
+                       TextColor="#373660"
+                       FontSize="20"
+                       VerticalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Margin="40,0,40,0" Spacing="20">
+                <Frame Padding="0"
+                       HeightRequest="150"
+                       WidthRequest="150"
+                       CornerRadius="75"
+                       HorizontalOptions="Center"
+                       Margin="0,15,0,0">
+                    <Image Source="{Binding FotoUsuario}"
+                           Aspect="AspectFill"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SeleccionarFotoCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Entry Placeholder="Nombres"
+                       Text="{Binding TxtNombre}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#373660"
+                       PlaceholderColor="#FFC82C"
+                       BackgroundColor="White"/>
+                <Entry Placeholder="Apellidos"
+                       Text="{Binding TxtApellido}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#373660"
+                       PlaceholderColor="#FFC82C"
+                       BackgroundColor="White"/>
+                <StackLayout Orientation="Horizontal"
+                             Margin="0,20,0,0">
+                    <Image Source="https://i.ibb.co/gSxHgkn/correo-electronico-1.png"
+                           HeightRequest="30"
+                           Margin="0,0,10,0"/>
+                    <Label Text="{Binding modelUsuario.Correo}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#373660"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             Margin="0,20,0,0">
+                    <Image Source="https://i.ibb.co/mhxyTXb/edificio.png"
+                           HeightRequest="30"
+                           Margin="0,0,10,0"/>
+                    <Label Text="{Binding modelUsuario.Celular}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#373660"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout VerticalOptions="EndAndExpand"
+                                 Margin="0,0,0,40">
+
+                <Button Text="Guardar Cambios"
+                                TextTransform="None"
+                                CornerRadius="25"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                BackgroundColor="#3E58EA"
+                                FontSize="20"
+                                Margin="20"
+                        Command="{Binding EditarUsuarioCommand}">
+                </Button>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

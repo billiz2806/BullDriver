@@ -21,6 +21,8 @@ namespace BullDriver.Models
         public string CalificarCliente { get; set; }
         public string CalificarConductor { get; set; }
         public string ComentarioConductor { get; set; }
+        public string ComentariosDeseos { get; set; }
+        public string IdPasarelaPago { get; set; }
 
 
     }

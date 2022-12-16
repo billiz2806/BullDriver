@@ -11,7 +11,13 @@ namespace BullDriver.Models
         private string _iconoUrl;
         private string _pais;
         private string _codigoPais;
+        private string _simboloMoneda;
 
+        public string SimboloMoneda
+        {
+            get { return _simboloMoneda; }
+            set { SetValue(ref _simboloMoneda, value); }
+        }
         public string IconoUrl
         {
             get { return _iconoUrl; }

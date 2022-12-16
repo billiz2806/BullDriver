@@ -90,8 +90,9 @@ namespace BullDriver.ViewModels
 
                 var message = MessageResource.Create(messageOptions);
                 Console.WriteLine(message.Body);
-
-                await Navigation.PushAsync(new DigitarCodigo(randomSMS, TxtNumero));
+                _googleUser.NumeroCel = TxtNumero;
+                _googleUser.SimboloMoneda = SelectPaisDefault.SimboloMoneda;
+                await Navigation.PushAsync(new DigitarCodigo(randomSMS, TxtNumero, _googleUser));
             }
             catch (Exception ex)
             {

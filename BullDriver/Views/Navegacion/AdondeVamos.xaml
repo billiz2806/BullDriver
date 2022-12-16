@@ -11,68 +11,49 @@
              xmlns:vistas="clr-namespace:BullDriver.Views.Navegacion.Navegar">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Appearing"
-                                        Command="{Binding ValidarAuthCommand}"/>
+                                        Command="{Binding ActualizarUsuarioCommand}"/>
     </ContentPage.Behaviors>
     <Grid BackgroundColor="White">
-        <Grid Margin="0,40,0,40">
+        <Grid Margin="0,50,0,0">
             <Grid RowDefinitions="auto,*">
-                <shadow:Shadows>
-                    <StackLayout Spacing="10" Padding="20,10" BackgroundColor="White">
-                        <StackLayout Orientation="Horizontal">
-                            <Image Source="https://i.ibb.co/k5gTQFK/flecha-izquierda-2.png"
-                               HeightRequest="20"
-                               HorizontalOptions="Start"/>
-                            <StackLayout Orientation="Horizontal"
-                                         HorizontalOptions="CenterAndExpand">
-                                <Frame CornerRadius="20"
-                                       VerticalOptions="Center"
-                                       Padding="0"
-                                       HasShadow="False">
-                                    <Frame.Background>
-                                        <RadialGradientBrush>
-                                            <GradientStopCollection>
-                                                <GradientStop Color="White"
-                                                              Offset="0.1"/>
-                                                <GradientStop Color="White"
-                                                              Offset="0.1"/>
-                                                <GradientStop Color="#E9E9E9"
-                                                              Offset="0.1"/>
-                                                <GradientStop Color="LightGray"
-                                                              Offset="1.0"/>
-                                            </GradientStopCollection>
-                                        </RadialGradientBrush>
-                                    </Frame.Background>
-                                    <Image Source="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                                           HeightRequest="17"
-                                           Margin="4"/>
+                <StackLayout Spacing="10" Padding="20,10" BackgroundColor="White">
+                    <StackLayout Orientation="Horizontal" Margin="0,0,0,20">
+                        <Frame CornerRadius="20"
+                               HeightRequest="40"
+                               WidthRequest="40"
+                               Margin="0,0,20,0"
+                               Padding="0"
+                               Opacity="0.6"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/5461/5461272.png" />
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding MostrarConfiguracionCommand}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
 
-                                </Frame>
-                                <Label Text="Para Mi"
-                                       VerticalOptions="Center"
-                                       TextColor="Black"/>
-                                <Image Source="https://i.ibb.co/64647fr/flecha-hacia-abajo.png"
-                                       HeightRequest="10"/>
-
-                            </StackLayout>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
+                        <Label Text="! A donde vamos !"
+                               TextColor="#373660"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"
+                               FontSize="30"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
                             <StackLayout VerticalOptions="Center"
-                                             Margin="0,0,12,0">
-                                <BoxView BackgroundColor="Black"
-                                             HeightRequest="10"
-                                             WidthRequest="10"
-                                             CornerRadius="10"
-                                             HorizontalOptions="Center"/>
+                                         Margin="0,0,12,0">
+                                <BoxView BackgroundColor="#57E18F"
+                                         HeightRequest="20"
+                                         WidthRequest="20"
+                                         CornerRadius="10"/>
                                 <Line HeightRequest="50"
                                       BackgroundColor="LightGray"
                                       WidthRequest="2"
                                       HorizontalOptions="Center"
                                       Margin="0,-5"/>
-                                <BoxView BackgroundColor="LightGray"
-                                             HeightRequest="10"
-                                             WidthRequest="10"
-                                             HorizontalOptions="Center"/>
-
+                                <BoxView BackgroundColor="#3E58E4"
+                                         HeightRequest="20"
+                                         WidthRequest="20"
+                                         CornerRadius="10"/>
                             </StackLayout>
                             <StackLayout  HorizontalOptions="FillAndExpand" >
                                 <StackLayout>
@@ -144,26 +125,36 @@
 
 
                             </StackLayout>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="S/."
-                                   FontSize="Medium"
-                                   VerticalOptions="Center"
-                                   TextColor="#373660"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding SimboloMoneda}"
+                               VerticalOptions="Center"
+                               TextColor="#FFC82C"
+                               FontSize="25"
+                               Margin="0,0,10,0"
+                                   FontAttributes="Bold"/>
                             <Button HorizontalOptions="FillAndExpand"  
-                                    BackgroundColor="#F9F9F9"
+                                    BackgroundColor="#FFC82C"
                                     CornerRadius="5"
-                                    FontSize="18"
+                                    FontSize="22"
                                     TextTransform="None"
-                                    TextColor="#373660"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
                                     Text="{Binding TxtTarifa}"
                                     Command="{Binding MostrarOfertarCommand}"/>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding MostrarOfertarCommand}"/>
                             </StackLayout.GestureRecognizers>
                         </StackLayout>
-                    </StackLayout>
-                </shadow:Shadows>
+                    <StackLayout Orientation="Horizontal">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/50/50011.png"
+                                   HeightRequest="20"
+                                   Margin="0,0,13,0"/>
+                            <Entry Placeholder="Comentarios y deseos"
+                                   HorizontalOptions="FillAndExpand"
+                                   Text="{Binding TextComentarioDeseo}"/>
+                        </StackLayout>
+                </StackLayout>
                 <Frame Grid.Row="1"
                        Padding="0"
                        Margin="20,10"
@@ -185,7 +176,7 @@
                         HorizontalOptions="Center"
                         WidthRequest="300"
                         CornerRadius="20"
-                        Margin="30"
+                        Margin="30,0,30,60"
                         FontAttributes="Bold"
                         Command="{Binding InsertarPedidoCommand}"/>
                 <reutilizables:ListaDirecciones Grid.Row="1" IsVisible="{Binding VisibleListaDirecciones }"/>
@@ -193,10 +184,11 @@
                     <TapGestureRecognizer Command="{Binding FijarEnMapaCommand}"/>
                 </Grid.GestureRecognizers>
             </Grid>
-            <Navegacion:Ofertar IsVisible="{Binding VisibleOfertar }"/>
-            <Navegacion:EsperarOferta IsVisible="{Binding VisibleEsperarOferta}"/>
-            <vistas:Navegar IsVisible="{Binding VisibleNavegar}"/>
-            <vistas:Calificar IsVisible="{Binding VisibleCalificar}"/>
         </Grid>
+        <Navegacion:Ofertar IsVisible="{Binding VisibleOfertar }"/>
+        <Navegacion:EsperarOferta IsVisible="{Binding VisibleEsperarOferta}"/>
+        <vistas:Navegar IsVisible="{Binding VisibleNavegar}"/>
+        <vistas:Calificar IsVisible="{Binding VisibleCalificar}"/>
+        <reutilizables:ConfiguracionView IsVisible="{Binding VisibleConfiguracion}"/>
     </Grid>
 </ContentPage>

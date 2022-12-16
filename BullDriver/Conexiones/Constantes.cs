@@ -9,5 +9,6 @@ namespace BullDriver.Conexiones
     {
         public const string GoogleMapsApiKey = "AIzaSyB6KOw_4i93vV7kFLPzyP18icvr50a0ygk";
         public static FirebaseClient firebase = new FirebaseClient("https://bulldriver-default-rtdb.firebaseio.com/");
+        public static string storage = "bulldriver.appspot.com";
     }
 }

@@ -32,7 +32,9 @@ namespace BullDriver.Datos
                     Notificacion = parametros.Notificacion,
                     CalificarCliente = parametros.CalificarCliente,
                     CalificarConductor = parametros.CalificarConductor,
-                    ComentarioConductor = parametros.ComentarioConductor
+                    ComentarioConductor = parametros.ComentarioConductor,
+                    ComentariosDeseos = parametros.ComentariosDeseos,
+                    IdPasarelaPago = parametros.IdPasarelaPago,
                 });
             return true;
         }
@@ -108,7 +110,8 @@ namespace BullDriver.Datos
                 .Select(item =>new Pedido
                 {
                     IdPedido = item.Key,
-                    Notificacion = item.Object.Notificacion
+                    Notificacion = item.Object.Notificacion,
+                    Tarifa = item.Object.Tarifa,
                 }).ToList();
         }
         public async Task<List<Pedido>> ListarPedidosConfirmados(Pedido parametros)
@@ -157,5 +160,34 @@ namespace BullDriver.Datos
                 .Child(data.Key)
                 .PutAsync(data.Object);
         }
+        public async Task AumentarPrecio(Pedido parametros)
+        {
+            var data = (await Constantes.firebase
+                .Child("Pedidos")
+                .OnceAsync<Pedido>())
+                .Where(a => a.Key == parametros.IdPedido)
+                .FirstOrDefault();
+
+            data.Object.Tarifa = parametros.Tarifa;
+
+            await Constantes.firebase
+                .Child("Pedidos")
+                .Child(data.Key)
+                .PutAsync(data.Object);
+        }
+        public async Task EliminarPedido(Pedido parametros)
+        {
+            var data = (await Constantes.firebase
+                .Child("Pedidos")
+                .OnceAsync<Pedido>())
+                .Where(a => a.Key == parametros.IdPedido)
+                .FirstOrDefault();
+
+            await Constantes.firebase
+                .Child("Pedidos")
+                .Child(data.Key)
+                .DeleteAsync();
+        }
+
     }
 }

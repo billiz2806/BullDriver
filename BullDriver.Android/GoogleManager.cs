@@ -71,6 +71,7 @@ namespace BullDriver.Droid
                 GoogleSignInAccount accountt = result.SignInAccount;
                 _onLoginComplete?.Invoke(new GoogleUser()
                 {
+                    IdGoogle = accountt.Id,
                     Nombre = accountt.DisplayName,
                     Email = accountt.Email,
                     Picture = new Uri((accountt.PhotoUrl != null ? $"{accountt.PhotoUrl}" : $"https://autisticdating.net/imgs/profile-placeholder.jpg"))

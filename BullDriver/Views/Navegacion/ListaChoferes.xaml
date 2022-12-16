@@ -67,7 +67,7 @@
                                 <StackLayout Grid.Column="1"
                                              Padding="20,15,60,0"
                                              HorizontalOptions="End">
-                                    <Label Text="S/. 5"
+                                    <Label Text="{Binding UsuarioModel.SimboloMoneda}"
                                            TextColor="#373660"
                                            FontAttributes="Bold"
                                            FontSize="Large"/>

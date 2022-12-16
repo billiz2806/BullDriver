@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using BullDriver.Views.Menu;
 using System.IO;
 using BullDriver.Views.Navegacion;
+using BullDriver.Datos;
+using BullDriver.Models;
 
 namespace BullDriver.ViewModels
 {
@@ -16,15 +18,19 @@ namespace BullDriver.ViewModels
         string _txtCodigo;
         string codigoRecibido;
         string _telefono;
+        public GoogleUser GoogleUser { get; set; }
         #endregion
+
         #region CONSTRUCTOR
-        public DigitarCodigoViewModel(INavigation navigation, string codigo, string telefono)
+        public DigitarCodigoViewModel(INavigation navigation, string codigo, string telefono, GoogleUser googleUser)
         {
             Navigation = navigation;
             codigoRecibido = codigo;
             Telefono = telefono;
+            GoogleUser = googleUser;
         }
         #endregion
+
         #region OBJETOS
         public string Telefono
         {
@@ -37,12 +43,28 @@ namespace BullDriver.ViewModels
             set { SetValue(ref _txtCodigo, value); }
         }
         #endregion
+
         #region PROCESOS
+        public async void InsertarUsuario()
+        {
+            var funcion = new DataUsuarios();
+            var parametros = new Usuario();
+            parametros.IdGoogle = GoogleUser.IdGoogle;
+            parametros.Nombre = GoogleUser.Nombre;
+            parametros.Apellido = GoogleUser.Apellido;
+            parametros.Celular = GoogleUser.NumeroCel;
+            parametros.Correo = GoogleUser.Email;
+            parametros.Estado = "ACTIVO";
+            parametros.Calificacion = "0";
+            parametros.SimboloMoneda = GoogleUser.SimboloMoneda;
+            await funcion.InsertUsuario(parametros);
+        }
         public async void ValidadCodigo()
         {
             if (TxtCodigo == codigoRecibido)
             {
-                CrearArchivo();
+                //CrearArchivo();
+                InsertarUsuario();
                 await Navigation.PushAsync(new AdondeVamos());
             }
             else
@@ -54,7 +76,7 @@ namespace BullDriver.ViewModels
         {
             var ruta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "auth.txt");
             StreamWriter sm;
-            string estado = "1";
+            string estado = "1" + ";"+ GoogleUser.IdGoogle;
             try
             {
                 if (File.Exists(ruta)==false)
@@ -84,6 +106,7 @@ namespace BullDriver.ViewModels
             await Navigation.PopAsync();
         }
         #endregion
+
         #region COMANDOS
         public ICommand VolverCommand => new Command(Volver);
 

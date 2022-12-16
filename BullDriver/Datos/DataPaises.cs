@@ -33,6 +33,7 @@ namespace BullDriver.Datos
             {
                 IconoUrl = $"https://hatscripts.github.io/circle-flags/flags/{p.TwoLetterISORegionName.ToLower()}.svg",
                 Pais = p.EnglishName,
+                SimboloMoneda = p.CurrencySymbol,
                 CodigoPais = phoneNumberUtil.GetCountryCodeForRegion
                 (p.TwoLetterISORegionName).ToString()
             }));
@@ -49,6 +50,7 @@ namespace BullDriver.Datos
             {
                 pais.CodigoPais = phoneNumberUtil.GetCountryCodeForRegion(regionInfo.TwoLetterISORegionName).ToString();
                 pais.Pais = regionInfo.EnglishName;
+                pais.SimboloMoneda = regionInfo.CurrencySymbol;
                 pais.IconoUrl = $"https://hatscripts.github.io/circle-flags/flags/{regionInfo.TwoLetterISORegionName.ToLower()}.svg";
 
                 return pais;
@@ -71,6 +73,7 @@ namespace BullDriver.Datos
             {
                 paises.CodigoPais = phoneNumberUtil.GetCountryCodeForRegion(regionInfo.TwoLetterISORegionName).ToString();
                 paises.Pais = regionInfo.EnglishName;
+                paises.SimboloMoneda = regionInfo.CurrencySymbol;
                 paises.IconoUrl = $"https://hatscripts.github.io/circle-flags/flags/{regionInfo.TwoLetterISORegionName.ToLower()}.svg";
 
 

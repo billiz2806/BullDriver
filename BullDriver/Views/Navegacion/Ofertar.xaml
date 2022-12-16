@@ -11,7 +11,7 @@
             <StackLayout>
                 <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center">
-                    <Label Text="S/"
+                    <Label Text="{Binding SimboloMoneda}"
                            FontSize="40"
                            TextColor="#373660"
                            VerticalOptions="Center"/>
@@ -25,40 +25,56 @@
                            Text="{Binding TxtTarifaEmergente}"/>
                 </StackLayout>
                 <Label Text="Ofresca una tarifa razonable para que su solicitud sea mas atractiva"
-                           HorizontalOptions="Center"
+                       HorizontalOptions="Center"
+                       FontSize="18"
                        TextColor="#8483A7"
-                           HorizontalTextAlignment="Center"/>
-                <StackLayout Orientation="Horizontal"
-                                 HorizontalOptions="Center">
-                    <Image Source="https://i.ibb.co/9yrYypx/cheque.png"
-                               HeightRequest="20"/>
-                    <Label Text="Efectivo"
-                               FontSize="Medium"
-                               FontAttributes="Bold"
-                           TextColor="#373660"/>
+                       HorizontalTextAlignment="Center"/>
+                <StackLayout x:Name="listPasarela"
+                             HorizontalOptions="FillAndExpand"            
+                             BindableLayout.ItemsSource="{Binding ListaPasarelaPagos}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="White"
+                                   CornerRadius="15"
+                                   BorderColor="LightGray"
+                                   Padding="0"
+                                   Margin="10">
+                                <StackLayout Orientation="Horizontal"
+                                             VerticalOptions="CenterAndExpand"
+                                             Margin="15">
+                                    <Image Source="{Binding Icono}"
+                                           VerticalOptions="Center"
+                                           Margin="0,0,20,0"
+                                           HeightRequest="40"
+                                           WidthRequest="40"/>
+                                    <Label Text="{Binding Descripcion}"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="StartAndExpand"/>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Path=BindingContext.SeleccionarPasarelaPagosCommand,
+                                        Source={x:Reference listPasarela}}"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
                 </StackLayout>
-                <Line HeightRequest="1"
-                          BackgroundColor="LightGray"/>
-
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="Cerrar"
-                                TextTransform="None"
-                                BackgroundColor="#8483A7"
-                                FontSize="Medium"
-                                FontAttributes="Bold"
-                                HorizontalOptions="StartAndExpand"
-                                CornerRadius="10"
+                
+                <StackLayout Orientation="Horizontal"
+                             Margin="10,0,10,30">
+                    <Button 
+                            Text="Cerrar"
+                            FontSize="20"
+                            TextTransform="None"
+                            BackgroundColor="#8483A7"
+                            FontAttributes="Bold"
+                            HorizontalOptions="FillAndExpand"
+                            CornerRadius="30"
                             TextColor="White"
                                 Command="{Binding OcultarOfertarCommand}"/>
-                    <Button Text="Hecho"
-                                TextTransform="None"
-                                BackgroundColor="#3F51B5"
-                                CornerRadius="15"
-                                FontSize="Medium"
-                                FontAttributes="Bold"
-                                TextColor="White"
-                                Command="{Binding AgregarTarifaCommand}"/> 
-
                 </StackLayout>
             </StackLayout>
         </Frame>

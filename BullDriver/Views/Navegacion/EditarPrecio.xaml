@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullDriver.Views.Navegacion.EditarPrecio">
+    <Grid VerticalOptions="End" Margin="10,0,10,30">
+        <BoxView BackgroundColor="White"
+                 CornerRadius="20"/>
+        <StackLayout Margin="20">
+            <Button Text="X"
+                    TextColor="#373660"
+                    FontAttributes="Bold"
+                    FontSize="25"
+                    HorizontalOptions="End"
+                    CornerRadius="25"
+                    BackgroundColor="White"
+                    Command="{Binding OcultarEditarPrecioCommand}"/>
+            <StackLayout>
+                <Label Text="Precio actual"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#8483A7"
+                       HorizontalOptions="Center"/>
+                <Label Text="{Binding TxtTarifa}"
+                       HorizontalOptions="CenterAndExpand"
+                       TextColor="#8483A7"
+                       FontSize="35"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center"/>
+                
+                <Entry HorizontalOptions="FillAndExpand"
+                       Placeholder="Nuevo Precio"
+                       PlaceholderColor="#FFC82C"
+                       TextColor="Black"
+                       FontSize="35"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding TextTarifaAEditar}"/>
+            </StackLayout>
+            <Button Text="Aumentar precio"
+                    FontSize="20"
+                    TextTransform="None"
+                    CornerRadius="25"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Margin="0,20,0,0"
+                    Command="{Binding AumentarPrecioCommand}">
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Color="#3f51b5" Offset="0.5"/>
+                            <GradientStop Color="#3E58EA" Offset="2.0"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackLayout>
+    </Grid>
+</ContentView>

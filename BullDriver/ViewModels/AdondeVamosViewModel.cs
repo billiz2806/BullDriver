@@ -1,6 +1,7 @@
 ﻿using BullDriver.Datos;
 using BullDriver.Models;
 using BullDriver.Services;
+using BullDriver.Views.Configuraciones;
 using BullDriver.Views.Navegacion;
 using BullDriver.Views.Registro;
 using System;
@@ -52,17 +53,39 @@ namespace BullDriver.ViewModels
         bool _visibleCalificar;
         string _textComentario;
         string _rating;
-        int _estado = 0;
+        string _estado = "0";
+        string _textComentarioDeseo;
+        string IdUser;
+        string IdPasarelaPago;
+        bool _visibleEditarPrecio;
+        string _textTarifaAEditar;
+        double tarifaInicial;
+        Usuario _usuarioModel;
+        bool _visibleConfiguracion;
+        string _simboloMoneda;
+        string idGoogle;
+        string _fotoUsuario;
+        string _nombreUsuario;
+
+        public static bool estadoActualizar = false;
         public GoogleMatrix ParametrosMatrix { get; set; }
-
-
+        private readonly IGoogleManager _googleManager;
+        List<PasarelaPago> _listaPasarelaPagos;
         #endregion
+
         #region CONSTRUCTOR
         public AdondeVamosViewModel(INavigation navigation, Xamarin.Forms.GoogleMaps.Map mapa)
         {
+           
+
             Navigation = navigation;
             this._mapa = mapa;
             _mapa.PropertyChanged += _mapa_PropertyChanged;
+
+            Task.Run(PinActual);
+            _googleManager = DependencyService.Get<IGoogleManager>();
+            LogearseConGmail();
+
             VisibleTxtOrigen = true;
             VisibleTxtDestino = true;
             EnableTxtOrigen = false;
@@ -78,15 +101,61 @@ namespace BullDriver.ViewModels
             VisibleNavegar = false;
             VisibleHeLlegado = false;
             VisibleCalificar = false;
+            VisibleEditarPrecio = false;
+            VisibleConfiguracion = false;
+            SimboloMoneda = "$";
 
-            //Task.Run(PinActual);
-            //ListarOfertas();
-            //ActivarTimer();
+
         }
         #endregion
 
-
         #region OBJETOS
+        public string NombreUsuario
+        {
+            get { return _nombreUsuario; }
+            set { SetValue(ref _nombreUsuario, value); }
+        }
+        public string FotoUsuario
+        {
+            get { return _fotoUsuario; }
+            set { SetValue(ref _fotoUsuario, value); }
+        }
+        public Usuario UsuarioModel
+        {
+            get { return _usuarioModel; }
+            set { SetValue(ref _usuarioModel, value); }
+        }
+        public string SimboloMoneda
+        {
+            get { return _simboloMoneda; }
+            set { SetValue(ref _simboloMoneda, value); }
+        }
+        public bool VisibleConfiguracion
+        {
+            get { return _visibleConfiguracion; }
+            set { SetValue(ref _visibleConfiguracion, value); }
+        }
+
+        public string TextTarifaAEditar
+        {
+            get { return _textTarifaAEditar; }
+            set { SetValue(ref _textTarifaAEditar, value); }
+        }
+        public bool VisibleEditarPrecio
+        {
+            get { return _visibleEditarPrecio; }
+            set { SetValue(ref _visibleEditarPrecio, value); }
+        }
+        public List<PasarelaPago> ListaPasarelaPagos
+        {
+            get { return _listaPasarelaPagos; }
+            set { SetValue(ref _listaPasarelaPagos, value); }
+        }
+        public string TextComentarioDeseo
+        {
+            get { return _textComentarioDeseo; }
+            set { SetValue(ref _textComentarioDeseo, value); }
+        }
         public string Rating
         {
             get { return _rating; }
@@ -205,33 +274,67 @@ namespace BullDriver.ViewModels
         #endregion
 
         #region PROCESOS
-        public int Autenticacion()
+        public void LogearseConGmail()
+        {
+            _googleManager.Login(LoginCompletado);
+        }
+        private async void LoginCompletado(GoogleUser user, string message)
+        {
+            if (user != null)
+            {
+                var funcion = new DataUsuarios();
+                var parametros = new Usuario();
+                parametros.IdGoogle = user.IdGoogle;
+                idGoogle = user.IdGoogle;
+                var listUsuarioModel = await funcion.ListarUsuarioPorIdGoogle(parametros);
+                UsuarioModel = new Usuario();
+                if (listUsuarioModel.Count > 0)
+                {
+                    listUsuarioModel.ForEach(item =>
+                    {
+                        IdUser = item.Id;
+                        SimboloMoneda = item.SimboloMoneda;
+                        FotoUsuario = item.Foto;
+                        NombreUsuario = item.Nombre + " " + item.Apellido;
+                        UsuarioModel.Id = item.Id;
+                        UsuarioModel.Nombre = item.Nombre;
+                        UsuarioModel.Apellido = item.Apellido;
+                        UsuarioModel.Foto = item.Foto;
+                        UsuarioModel.SimboloMoneda = item.SimboloMoneda;
+                        UsuarioModel.Correo = item.Correo;
+                        UsuarioModel.Celular = item.Celular;
+                        UsuarioModel.Calificacion = item.Calificacion;
+                        UsuarioModel.Estado = item.Estado;
+                    });
+
+                    MostrarPasarelaPagos();
+                    //Task.Run(PinActual);
+                    ListarOfertas();
+                    ActivarTimer();
+                }
+                else
+                {
+                    Application.Current.MainPage = new NavigationPage(new Empezar());
+                }
+                
+            }
+            else
+            {
+                await DisplayAlert("Mensaje", message, "OK");
+            }
+        }
+        public string Autenticacion()
         {
             try
             {
                 var ruta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "auth.txt");
-                _estado = Convert.ToInt32(File.ReadAllText(ruta));
+                _estado = (File.ReadAllText(ruta)).ToString();
                 return _estado;
             }
             catch (Exception)
             {
 
                 return _estado;
-            }
-        }
-
-        public void ValidarAuth()
-        {
-            Autenticacion();
-            if (_estado == 0) /* revertir a: _estado == 0 */
-            {
-                Application.Current.MainPage = new NavigationPage(new Empezar());
-            }
-            else
-            {
-                Task.Run(PinActual);
-                ListarOfertas();
-                ActivarTimer();
             }
         }
         private void AgregarTarifa()
@@ -359,13 +462,25 @@ namespace BullDriver.ViewModels
                 Position = new Position(0, 0)
             };
             _mapa.Pins.Add(_punto);
-            await GeolocalizacionActual();
+             await GeolocalizacionActual();
+        }
+        private Task<Location> GetLastKnownLocation()
+        {
+            var locationTaskCompletionSource = new TaskCompletionSource<Location>();
+
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                locationTaskCompletionSource.SetResult(await Geolocation.GetLastKnownLocationAsync());
+            });
+
+            return locationTaskCompletionSource.Task;
         }
         private async Task GeolocalizacionActual()
         {
             try
             {
-                var location = await Geolocation.GetLastKnownLocationAsync();
+                //var location = await Geolocation.GetLastKnownLocationAsync();
+                var location = await GetLastKnownLocation().ConfigureAwait(false);
                 if (location == null)
                 {
                     location = await Geolocation.GetLocationAsync(new GeolocationRequest
@@ -384,11 +499,10 @@ namespace BullDriver.ViewModels
                     _mapa.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(500)));
                 }
 
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                var message = ex.Message;
                 throw;
             }
         }
@@ -410,7 +524,11 @@ namespace BullDriver.ViewModels
                 {
                     if (!string.IsNullOrWhiteSpace(TxtTarifa) && TxtTarifa != "Ofresca su tarifa")
                     {
-                        var funcion = new DataPedidos();
+                        if (string.IsNullOrWhiteSpace(TextComentarioDeseo))
+                        {
+                            TextComentarioDeseo = "-";
+                        }
+                            var funcion = new DataPedidos();
                         var parametros = new Pedido();
                         var coorOrigen = ltOrigen.ToString().Replace(",", ".") + "," + lgOrigen.ToString().Replace(",", ".");
                         var coorDestino = ltDestino.ToString().Replace(",", ".") + "," + lgDestino.ToString().Replace(",", ".");
@@ -418,7 +536,7 @@ namespace BullDriver.ViewModels
                         parametros.Origen_lugar = TxtOrigen;
                         parametros.Destino_lugar = TxtDestino;
                         parametros.IdChofer = "Modelo";
-                        parametros.IdUser = "Modelo";
+                        parametros.IdUser = IdUser;
                         parametros.Lt_lg_origen = coorOrigen;
                         parametros.Lt_lg_destino = coorDestino;
                         parametros.Estado = "PENDIENTE";
@@ -429,9 +547,11 @@ namespace BullDriver.ViewModels
                         parametros.CalificarCliente = "-";
                         parametros.CalificarConductor = "-";
                         parametros.ComentarioConductor = "-";
+                        parametros.ComentariosDeseos = TextComentarioDeseo;
+                        parametros.IdPasarelaPago = IdPasarelaPago;
 
                         await funcion.InsertPedidos(parametros);
-                        VisibleOfertar = true;
+                        VisibleOfertar = false;
                     }
                     else
                     {
@@ -457,7 +577,7 @@ namespace BullDriver.ViewModels
         {
             var funcion = new DataOfertasConductores();
             var parametros = new Pedido();
-            parametros.IdUser = "Modelo";
+            parametros.IdUser = IdUser;
             ListaOfertas = await funcion.ListaOfertas(parametros);
         }
         private void ActivarTimer()
@@ -520,14 +640,14 @@ namespace BullDriver.ViewModels
         {
             var funcion = new DataPedidos();
             var parametros = new Pedido();
-            parametros.IdUser = "Modelo";
+            parametros.IdUser = IdUser;
             var lista = await funcion.ListarPedidosFinalizados(parametros);
             if (lista.Count > 0)
             {
-                lista.ForEach(item =>
-                {
-                    IdPedido = item.IdPedido;
-                });
+                //lista.ForEach(item =>
+                //{
+                //    IdPedido = item.IdPedido;
+                //});
                 VisibleCalificar = true;
             }
             else
@@ -539,10 +659,17 @@ namespace BullDriver.ViewModels
         {
             var funcion = new DataPedidos();
             var parametros = new Pedido();
-            parametros.IdUser = "Modelo";
+            parametros.IdUser = IdUser;
             var lista = await funcion.ListarPedidosPendientes(parametros);
             if(lista.Count > 0)
             {
+                lista.ForEach(item =>
+                {
+                    IdPedido = item.IdPedido;
+                    TxtTarifa = item.Tarifa;
+                });
+                tarifaInicial = Convert.ToDouble(TxtTarifa);
+
                 VisibleEsperarOferta = true;
                 VisibleOferta = false;
             }
@@ -556,7 +683,7 @@ namespace BullDriver.ViewModels
         {
             var funcion = new DataPedidos();
             var parametros = new Pedido();
-            parametros.IdUser = "Modelo";
+            parametros.IdUser = IdUser;
             var lista = await funcion.ListarPedidosConfirmados(parametros);
             if (lista.Count > 0)
             {
@@ -580,18 +707,134 @@ namespace BullDriver.ViewModels
         {
             var funcion = new DataPedidos();
             _modelPedido = new Pedido();
-            _modelPedido.IdUser = "Modelo";
+            _modelPedido.IdUser = IdUser;
             _modelPedido.Tarifa = parametros.Tarifa;
             _modelPedido.IdChofer = parametros.IdConductor;
             await funcion.ConfirmarPedido(_modelPedido);
             VisibleNavegar = true;
             VisibleEsperarOferta = false;
         }
+        private async void MostrarPasarelaPagos()
+        {
+            var funcion = new DataPasarelaPago();
+            ListaPasarelaPagos = await funcion.ListarPasarelaPagos();
+        }
+        private async void SeleccionarPasarelaPagos(PasarelaPago paremaetros)
+        {
+            IdPasarelaPago = paremaetros.Id;
+            if (!string.IsNullOrWhiteSpace(TxtTarifaEmergente))
+            {
+                TxtTarifa = TxtTarifaEmergente;
+                OcultarOfertar();
+            }
+            else
+            {
+                await DisplayAlert("Alerta", "Ingrese una tarifa", "ok");
+            }
+        }
+        private void OcultarEditarPrecio()
+        {
+            VisibleEditarPrecio = false;
+        }
+        private void MostrarEditarPrecio()
+        {
+            VisibleEditarPrecio = true;
+        }
+        private async void AumentarPrecio()
+        {
+            if (!string.IsNullOrWhiteSpace(TextTarifaAEditar))
+            {
+                if(tarifaInicial < Convert.ToDouble(TextTarifaAEditar))
+                {
+                    var funcion = new DataPedidos();
+                    var parametros = new Pedido();
+                    parametros.IdPedido = IdPedido;
+                    parametros.Tarifa = TextTarifaAEditar;
+                    await funcion.AumentarPrecio(parametros);
+                    TextTarifaAEditar = "";
+                    OcultarEditarPrecio();
+                }
+                else
+                {
+                    await DisplayAlert("Alerta", "Ingrese un precio mayor al actual", "ok");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Alerta", "debe imgresar un precio", "ok");
+            }
+        }
+        private async void EliminarPedido()
+        {
+            var respuesta = await DisplayAlert("¿Desea eliminar este pedido?", "Se eliminara este registro", "Si","No");
+            if (respuesta)
+            {
+                var funcion = new DataPedidos();
+                var parametros = new Pedido();
+                parametros.IdPedido = IdPedido;
+                await funcion.EliminarPedido(parametros);
+            }
+            
+        }
+        private void MostrarConfiguracion()
+        {
+            VisibleConfiguracion = true;
+        }
+        private void OcultarConfiguracion()
+        {
+            VisibleConfiguracion = false;
+        }
+        private async void IrConfigurarPerfilUsuario()
+        {
+            await Navigation.PushAsync(new PerfilUsuario(UsuarioModel));
+        }
+        private async void ActualizarUsuario()
+        {
+            if (estadoActualizar)
+            {
+                estadoActualizar = false;
+                var funcion = new DataUsuarios();
+                var parametros = new Usuario();
+                parametros.IdGoogle = idGoogle;
 
+                var listUsuarioModel = await funcion.ListarUsuarioPorIdGoogle(parametros);
+                UsuarioModel = new Usuario();
+
+                if (listUsuarioModel.Count > 0)
+                {
+                    listUsuarioModel.ForEach(item =>
+                    {
+                        IdUser = item.Id;
+                        SimboloMoneda = item.SimboloMoneda;
+                        FotoUsuario = item.Foto;
+                        NombreUsuario = item.Nombre + " " + item.Apellido;
+                        UsuarioModel.Id = item.Id;
+                        UsuarioModel.Nombre = item.Nombre;
+                        UsuarioModel.Apellido = item.Apellido;
+                        UsuarioModel.Foto = item.Foto;
+                        UsuarioModel.SimboloMoneda = item.SimboloMoneda;
+                        UsuarioModel.Correo = item.Correo;
+                        UsuarioModel.Celular = item.Celular;
+                        UsuarioModel.Calificacion = item.Calificacion;
+                        UsuarioModel.Estado = item.Estado;
+                    });
+                    
+                }
+
+            }     
+        }
         #endregion
 
         #region COMANDOS
-        public ICommand ValidarAuthCommand => new Command(ValidarAuth);
+        public ICommand ActualizarUsuarioCommand => new Command(ActualizarUsuario);
+        public ICommand IrConfigurarPerfilUsuarioCommand => new Command(IrConfigurarPerfilUsuario);
+        public ICommand OcultarConfiguracionCommand => new Command(OcultarConfiguracion);
+        public ICommand MostrarConfiguracionCommand => new Command(MostrarConfiguracion);
+        public ICommand EliminarPedidoCommand => new Command(EliminarPedido);
+        public ICommand AumentarPrecioCommand => new Command(AumentarPrecio);
+        public ICommand MostrarEditarPrecioCommand => new Command(MostrarEditarPrecio);
+        public ICommand OcultarEditarPrecioCommand => new Command(OcultarEditarPrecio);
+        public ICommand SeleccionarPasarelaPagosCommand => new Command<PasarelaPago>(SeleccionarPasarelaPagos);
         public ICommand CalificarCommand => new Command(Calificar);
         public ICommand ConfirmarPedidoCommand => new Command<OfertaConductor>(ConfirmarPedido);
         public ICommand SelectDireccionCommand => new Command<GooglePlaceAutoCompletePrediction>(async (p) => await SeleccionarDireccion(p));

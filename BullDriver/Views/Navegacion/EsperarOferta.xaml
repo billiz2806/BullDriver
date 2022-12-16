@@ -6,27 +6,34 @@
              xmlns:navegacion="clr-namespace:BullDriver.Views.Navegacion">
     <Grid BackgroundColor="White">
         <StackLayout>
-            <Button Text="Cancelar"
-                    TextColor="#3f51b5"
-                    BackgroundColor="White"
-                    TextTransform="None"
-                    HorizontalOptions="End"
-                    CornerRadius="10" />
             <Grid VerticalOptions="FillAndExpand">
                 <maps:Map/>
                 <Grid>
                     <BoxView BackgroundColor="Black"
                              Opacity="0.6" />
+                    <Button Text="Cancelar pedido"
+                            FontSize="20"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            BackgroundColor="#8483A7"
+                            TextTransform="None"
+                            CornerRadius="15"
+                            VerticalOptions="Start"
+                            BorderColor="#3F51B5"
+                            HorizontalOptions="FillAndExpand"
+                            Margin="50"
+                            Command="{Binding EliminarPedidoCommand}"/>
                     <Label Text="Ofreciendo su tarifa a los conductores, espere"
                            FontSize="25"
                            FontAttributes="Bold"
                            HorizontalTextAlignment="Center"
+                           VerticalOptions="Center"
                            TextColor="White"
                            Margin="20"/>
                 </Grid>
-                <Grid VerticalOptions="End" Margin="10">
+                <Grid VerticalOptions="End" Margin="10,0,10,30">
                     <BoxView BackgroundColor="White"
-                             CornerRadius="10"/>
+                             CornerRadius="20"/>
                     <StackLayout Margin="40,30,40,30">
                         <StackLayout Orientation="Horizontal">
                             <Image Source="https://i.ibb.co/hLwhJWD/encendiendo.png"
@@ -42,37 +49,23 @@
                             <Label Text="Precio actual"
                                    FontSize="18"
                                    FontAttributes="Bold"
-                                   TextColor="#373660"
+                                   TextColor="#FFC82C"
                                    Margin="10"
                                    HorizontalOptions="Center"/>
-                            <StackLayout Orientation="Horizontal">
-                                <Frame CornerRadius="10"
-                                       Padding="13"
-                                       BackgroundColor="#FFC82C">
-                                    <Label Text="- 0.5"
-                                           FontSize="20"
-                                           TextColor="White"
-                                           FontAttributes="Bold"/>
-                                </Frame>
-                                <Label Text="S/. 30"
-                                       HorizontalOptions="CenterAndExpand"
-                                       TextColor="#373660"
-                                       FontSize="35"
-                                       VerticalTextAlignment="Center"/>
-                                <Frame CornerRadius="10"
-                                       Padding="13"
-                                       BackgroundColor="#FFC82C">
-                                    <Label Text="+ 0.5"
-                                           FontSize="20"
-                                           TextColor="White"
-                                           FontAttributes="Bold"/>
-                                </Frame>
-                            </StackLayout>
+                            <Label Text="{Binding TxtTarifa}"
+                                   HorizontalOptions="CenterAndExpand"
+                                   TextColor="#373660"
+                                   FontSize="35"
+                                   FontAttributes="Bold"
+                                   VerticalTextAlignment="Center"/>
                             <Button Text="Aumentar precio"
-                                    CornerRadius="20"
+                                    FontSize="20"
+                                    TextTransform="None"
+                                    CornerRadius="25"
                                     TextColor="White"
                                     FontAttributes="Bold"
-                                    Margin="0,20,0,0">
+                                    Margin="0,20,0,0"
+                                    Command="{Binding MostrarEditarPrecioCommand}">
                                 <Button.Background>
                                     <LinearGradientBrush>
                                         <GradientStopCollection>
@@ -87,6 +80,7 @@
                 </Grid>
             </Grid>
         </StackLayout>
+        <navegacion:EditarPrecio IsVisible="{Binding VisibleEditarPrecio}"/>
         <navegacion:ListaChoferes IsVisible="{Binding VisibleOferta}"/>
     </Grid>
 </ContentView>

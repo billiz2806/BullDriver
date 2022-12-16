@@ -6,10 +6,13 @@ namespace BullDriver.Models
 {
     public class GoogleUser
     {
+        public string NumeroCel { get; set; }
+        public string IdGoogle { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Email { get; set; }
         public Uri Picture { get; set; }
+        public string SimboloMoneda { get; set; }
 
     }
 
