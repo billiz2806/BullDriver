@@ -85,7 +85,6 @@ namespace BullDriver.Droid
 
         public void OnConnected(Bundle connectionHint)
         {
-
         }
 
         public void OnConnectionSuspended(int cause)
